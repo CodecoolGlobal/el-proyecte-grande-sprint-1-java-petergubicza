@@ -1,0 +1,14 @@
+.mainPage {
+    width: 300px;
+    border: 5px solid black;
+    padding: 50px;
+    margin: 20px;
+    flex: 1;
+}
+.leaderBoard {
+    width: 300px;
+    border: 5px dotted purple;
+    padding: 50px;
+    margin: 20px;
+    flex: 1;
+}
