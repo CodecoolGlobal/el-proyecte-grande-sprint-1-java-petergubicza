@@ -1,1 +1,1 @@
-No starter code is provided. Start from scratch!
+This Project is about to create a trivia quiz web application
