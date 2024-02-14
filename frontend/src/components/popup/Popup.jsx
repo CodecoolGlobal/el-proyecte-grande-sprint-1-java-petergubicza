@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import './popup.css';
+import './Popup';
 
 export default function Popup({ onClose, childComponent }) {
     return (

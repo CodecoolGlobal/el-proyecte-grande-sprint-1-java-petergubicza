@@ -1,3 +1,3 @@
-import Answers from './Answers/Answers.jsx';
+import Answers from './Answers.jsx';
 
 export default Answers;

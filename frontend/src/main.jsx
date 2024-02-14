@@ -1,14 +1,12 @@
 import * as React from 'react';
-
-import MainPage from './Pages/MainPage/MainPage';
 import * as ReactDOM from 'react-dom/client';
-import Popup from './Components/Popup/Popup'
 import {
 	createBrowserRouter,
 	RouterProvider
 } from 'react-router-dom';
 import App from './App';
-import './App.css';
+import Home from './Pages/Home'
+import './Main.css';
 
 const router = createBrowserRouter([
 	{
@@ -16,8 +14,8 @@ const router = createBrowserRouter([
 		element: <App/>
 	},
 	{
-		path: '/main',
-		element: <MainPage />
+		path: '/home',
+		element: <Home />
 	},
 ]);
 

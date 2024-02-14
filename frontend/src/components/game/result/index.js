@@ -1,3 +1,3 @@
-import Result from './result/Result.jsx';
+import Result from './Result.jsx';
 
 export default Result;

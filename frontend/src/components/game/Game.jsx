@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { fetchData } from './fetch.js';
+import { fetchData } from './fetch';
 import Question from './Questions';
 import Answers from './Answers';
 import Result from './Result';
-import './game.css';
+import './Game.css';
 
 export default function Game({ onClose }) {
 

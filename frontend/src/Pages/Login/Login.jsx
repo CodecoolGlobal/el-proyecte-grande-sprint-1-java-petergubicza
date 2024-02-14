@@ -1,10 +1,9 @@
-import { Link, Outlet } from 'react-router-dom';
-import '../App.css';
+import { Link } from 'react-router-dom';
+import './Login.css';
 
 export default function Login() {
 	function test(e) {
 		e.preventDefault();
-		console.log('hello');
 	}
 	return (
 		<div>
@@ -29,7 +28,7 @@ export default function Login() {
 					</button>
 				</div>
 				<div className="buttons">
-					<Link to={'main'}>
+					<Link to={'home'}>
 						<button type="button" disabled={false}>
 							Play as Guest
 						</button>

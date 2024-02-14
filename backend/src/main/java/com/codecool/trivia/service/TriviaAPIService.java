@@ -1,21 +1,26 @@
 package com.codecool.trivia.service;
 
-import com.codecool.trivia.model.TriviaReport;
+import com.codecool.trivia.model.report.TriviaReport;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class TriviaAPIService {
-  private final RestTemplate restTemplate;
+  private final WebClient webClient;
 
-  public TriviaAPIService(RestTemplate restTemplate) {
-    this.restTemplate = restTemplate;
+  public TriviaAPIService(WebClient webClient) {
+    this.webClient = webClient;
   }
 
-  public TriviaReport[] fetchTriviaQuestions(int numberOfTrivia) {
+  public TriviaReport fetchTriviaQuestions(int numberOfTrivia) {
 
-    String url = String.format("https://opentdb.com/api.php?amount=%s&difficulty=easy&type=multiple", numberOfTrivia);
+    String url = String.format("https://opentdb.com/api.php?amount=%s&type=multiple", numberOfTrivia);
 
-    return restTemplate.getForObject(url, TriviaReport[].class);
+    return webClient
+            .get()
+            .uri(url)
+            .retrieve()
+            .bodyToMono(TriviaReport.class)
+            .block();
   }
 }

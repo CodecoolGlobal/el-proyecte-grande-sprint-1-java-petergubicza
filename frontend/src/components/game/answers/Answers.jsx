@@ -1,4 +1,4 @@
-import { fetchData } from '../fetch.js';
+import { fetchData } from "../fetch";
 
 /* eslint-disable react/prop-types */
 export default function Answers({ answers, questionId, displayResult, result }) {

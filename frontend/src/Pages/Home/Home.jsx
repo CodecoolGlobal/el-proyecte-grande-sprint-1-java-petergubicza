@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import Popup from '../../components/Popup/Popup';
-import LeaderBoard from '../../components/Leaderboard/LeaderBoard';
-import './MainPage.css';
-import Game from '../../components/Game/Game';
-export default function MainPage() {
+import LeaderBoard from '../../Components/LeaderBoard';
+import Game from '../../Components/Game';
+import Popup from '../../Components/Popup/Popup';
+import './Home.css';
+
+export default function Home() {
 	const [popup, setPopup] = useState(false);
 
 	function handleClose() {
@@ -11,8 +12,8 @@ export default function MainPage() {
 	}
 
 	return (
-		<div className="mainPage">
-			<h1 className='header'>I am the main page</h1>
+		<div className="homePage">
+			<h1 className='header'>Home</h1>
 			<div className="leaderBoard">
 				<LeaderBoard />
 			</div>

@@ -1,7 +1,7 @@
-package com.codecool.trivia.model;
+package com.codecool.trivia.model.report;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record QuestionReport(String category, String question) {
+public record TriviaReport(Trivia[] results) {
 }
