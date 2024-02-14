@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TriviaUserInitializer implements ApplicationRunner {
-    private final PopulateUsers populateUsers;
+  private final PopulateUsers populateUsers;
 
-    public TriviaUserInitializer(PopulateUsers populateUsers) {
-        this.populateUsers = populateUsers;
-    }
+  public TriviaUserInitializer(PopulateUsers populateUsers) {
+    this.populateUsers = populateUsers;
+  }
 
-    @Override
-    public void run(ApplicationArguments args) {
-        populateUsers.fillUsers();
-    }
+  @Override
+  public void run(ApplicationArguments args) {
+    populateUsers.fillUsers();
+  }
 }

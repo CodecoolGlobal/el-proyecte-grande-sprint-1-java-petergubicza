@@ -6,19 +6,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @RestController
 @RequestMapping("/api/trivia")
 public class TriviaController {
   private final PopulateQuestions populateDatabase;
+  private final WebClient webClient;
 
   @Autowired
-  public TriviaController(PopulateQuestions populateDatabase) {
+  public TriviaController(PopulateQuestions populateDatabase, WebClient webClient) {
     this.populateDatabase = populateDatabase;
+    this.webClient = webClient;
   }
 
   @GetMapping("/test")
   public void fetchQuestion(@RequestParam int quantity) {
     populateDatabase.fillDatabaseWithQuestions(quantity);
   }
+
 }

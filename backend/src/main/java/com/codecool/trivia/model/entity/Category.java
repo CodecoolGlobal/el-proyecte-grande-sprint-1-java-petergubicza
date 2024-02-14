@@ -10,6 +10,7 @@ public class Category {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
+  @Column(unique = true)
   private String name;
   @OneToMany(mappedBy = "category")
   private List<Question> questions;

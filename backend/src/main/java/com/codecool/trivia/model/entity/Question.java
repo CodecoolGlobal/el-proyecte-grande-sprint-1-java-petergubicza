@@ -10,6 +10,7 @@ public class Question {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
+  @Column(unique = true)
   private String question;
   @ManyToOne
   private Category category;
