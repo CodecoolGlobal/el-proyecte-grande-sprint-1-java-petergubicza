@@ -1,4 +1,4 @@
-package com.codecool.trivia.service;
+package com.codecool.trivia.service.populate;
 
 import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
