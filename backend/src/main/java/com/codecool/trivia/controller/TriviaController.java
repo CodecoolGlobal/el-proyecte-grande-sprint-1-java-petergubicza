@@ -1,6 +1,6 @@
 package com.codecool.trivia.controller;
 
-import com.codecool.trivia.service.PopulateQuestions;
+import com.codecool.trivia.service.populate.PopulateQuestions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

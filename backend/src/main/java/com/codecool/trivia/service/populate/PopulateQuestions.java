@@ -1,4 +1,4 @@
-package com.codecool.trivia.service;
+package com.codecool.trivia.service.populate;
 
 import com.codecool.trivia.model.entity.Answer;
 import com.codecool.trivia.model.entity.Category;
@@ -10,6 +10,7 @@ import com.codecool.trivia.repository.AnswerRepository;
 import com.codecool.trivia.repository.CategoryRepository;
 import com.codecool.trivia.repository.DifficultyRepository;
 import com.codecool.trivia.repository.QuestionRepository;
+import com.codecool.trivia.service.TriviaAPIService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
