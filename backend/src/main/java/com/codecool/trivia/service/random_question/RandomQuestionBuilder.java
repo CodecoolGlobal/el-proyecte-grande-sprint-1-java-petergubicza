@@ -1,5 +1,6 @@
 package com.codecool.trivia.service.random_question;
 
+import com.codecool.trivia.model.entity.Question;
 import com.codecool.trivia.repository.AnswerRepository;
 import com.codecool.trivia.repository.CategoryRepository;
 import com.codecool.trivia.repository.DifficultyRepository;
@@ -31,5 +32,12 @@ public class RandomQuestionBuilder {
     private int getMaxAmountOfQuestionsFromDB() {
         return this.questionRepository.findAll()
                 .size();
+    }
+    private int getRandomNumberInBound(int upperBound) {
+        return this.random.nextInt(upperBound);
+    }
+    public Question getRandomQuestion() {
+        int numberOfQuestions = getMaxAmountOfQuestionsFromDB();
+        int randomNumber = getRandomNumberInBound(numberOfQuestions);
     }
 }
