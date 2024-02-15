@@ -1,15 +1,37 @@
-import { players } from '../../exampleLeaderBoard';
 import './LeaderBoard.css';
+import { fetchData } from '../Game/fetch';
+import { useState, useEffect } from 'react';
 
 export default function LeaderBoard() {
-	return (
-		<div>
-			<h1 id="header">I am the Leader Board</h1>
-			<ol>
-				{players.map((p) => {
-					return <li className='playerList'>{p}</li>;
-				})}
-			</ol>
-		</div>
-	);
+  const [championsWithPoints, setChampionsWithPoints] = useState([]);
+
+  useEffect(() => {
+    fetchData('/api/trivia/leaderboard')
+      .then(res => {
+        setChampionsWithPoints(concatData(res.names, res.points));
+      })
+      .catch(error => {
+        console.error('Error fetching leaderboard', error);
+      });
+  }, []);
+
+  function concatData(champ, point) {
+    const champsWithPoints = [];
+    for (let i = 0; i < 5; i++) {
+      champsWithPoints[i] = champ[i] + ' - ' + point[i];
+    }
+    console.log(champsWithPoints);
+    return champsWithPoints
+  }
+
+  return (
+    <div>
+      <h1 id="header">Top 5 players:</h1>
+      <ol>
+        {championsWithPoints.map((champion) => {
+          return <li key={champion} className='playerList'>{champion}</li>
+        })};
+      </ol>
+    </div>
+  );
 }
