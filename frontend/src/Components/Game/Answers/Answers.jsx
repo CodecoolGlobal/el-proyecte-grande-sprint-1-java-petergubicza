@@ -1,27 +1,11 @@
-import { fetchData } from "../../fetch";
-
 /* eslint-disable react/prop-types */
-export default function Answers({
-  answers,
-  questionId,
-  displayResult,
-  result,
-}) {
-  async function isSelectedAnswerCorrect(selectedAnswer) {
-    const data = await fetchData(`/api/trivia/answer/${questionId}`);
-    result(data.correctAnswer === selectedAnswer);
-    displayResult();
-  }
+export default function Answers({ answers, onSelectAnswer }) {
 
   return (
     <div className="answers">
-      {answers.map((answer, index) => (
-        <div
-          key={index}
-          id={`answer-${index}`}
-          onClick={() => isSelectedAnswerCorrect(answer)}
-        >
-          {answer}
+      {answers.map((answer) => (
+        <div key={answer.id} onClick={() => onSelectAnswer(answer)}>
+          {answer.description}
         </div>
       ))}
     </div>
