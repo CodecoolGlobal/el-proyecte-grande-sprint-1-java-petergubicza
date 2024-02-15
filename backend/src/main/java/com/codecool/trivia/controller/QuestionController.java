@@ -1,6 +1,7 @@
 package com.codecool.trivia.controller;
 
 import com.codecool.trivia.dto.QuestionDTO;
+import com.codecool.trivia.model.entity.Question;
 import com.codecool.trivia.service.RandomQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class QuestionController {
 
     @GetMapping(value = "randomQuestion")
     public ResponseEntity<QuestionDTO> getRandomQuestion() {
-        return null;
+        QuestionDTO randomQuestionDto = this.randomQuestionService.getRandomQuestionDTO();
+        return ResponseEntity.ok(randomQuestionDto);
     }
 }

@@ -43,9 +43,10 @@ public class PopulateQuestions {
   private void saveQuestion(Trivia question) {
     Question newQuestion = new Question();
 
-    newQuestion.setQuestion(question.getQuestion());
-    newQuestion.setCategory(checkQuestionCategory(question.getCategory()));
-    newQuestion.setDifficulty(checkQuestionDifficulty(question.getDifficulty()));
+
+    newQuestion.setQuestionDescription(question.question());
+    newQuestion.setCategory(checkQuestionCategory(question.category()));
+    newQuestion.setDifficulty(checkQuestionDifficulty(question.difficulty()));
 
     questionRepository.save(newQuestion);
 
