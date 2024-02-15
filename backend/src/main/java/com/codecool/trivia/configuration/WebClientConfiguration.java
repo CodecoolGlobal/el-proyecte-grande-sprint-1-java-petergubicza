@@ -8,6 +8,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WebClientConfiguration {
   @Bean
   public WebClient webClient() {
-    return WebClient.create("http://localhost:8080/api/trivia");
+    return WebClient.create();
   }
 }
