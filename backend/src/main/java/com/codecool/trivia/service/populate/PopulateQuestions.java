@@ -10,7 +10,6 @@ import com.codecool.trivia.repository.AnswerRepository;
 import com.codecool.trivia.repository.CategoryRepository;
 import com.codecool.trivia.repository.DifficultyRepository;
 import com.codecool.trivia.repository.QuestionRepository;
-import com.codecool.trivia.service.TriviaAPIService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,11 +36,11 @@ public class PopulateQuestions {
     TriviaReport questions = triviaAPIService.fetchTriviaQuestions(numberOfQuestions);
 
     for (Trivia question : questions.results()) {
-      makeDatabaseEntry(question);
+      saveQuestion(question);
     }
   }
 
-  private void makeDatabaseEntry(Trivia question) {
+  private void saveQuestion(Trivia question) {
     Question newQuestion = new Question();
 
     newQuestion.setQuestion(question.question());
