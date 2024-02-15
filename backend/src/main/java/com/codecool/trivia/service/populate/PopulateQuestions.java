@@ -10,7 +10,6 @@ import com.codecool.trivia.repository.AnswerRepository;
 import com.codecool.trivia.repository.CategoryRepository;
 import com.codecool.trivia.repository.DifficultyRepository;
 import com.codecool.trivia.repository.QuestionRepository;
-import com.codecool.trivia.service.TriviaAPIService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,12 +36,13 @@ public class PopulateQuestions {
     TriviaReport questions = triviaAPIService.fetchTriviaQuestions(numberOfQuestions);
 
     for (Trivia question : questions.results()) {
-      makeDatabaseEntry(question);
+      saveQuestion(question);
     }
   }
 
-  private void makeDatabaseEntry(Trivia question) {
+  private void saveQuestion(Trivia question) {
     Question newQuestion = new Question();
+
 
     newQuestion.setQuestionDescription(question.question());
     newQuestion.setCategory(checkQuestionCategory(question.category()));
@@ -50,8 +50,8 @@ public class PopulateQuestions {
 
     questionRepository.save(newQuestion);
 
-    newQuestion.setCorrect_answer(createAnswer(newQuestion, question.correct_answer(), true));
-    newQuestion.setIncorrect_answers(collectIncorrectAnswers(newQuestion, question.incorrect_answers()));
+    newQuestion.setCorrect_answer(createAnswer(newQuestion, question.getCorrect_answer(), true));
+    newQuestion.setIncorrect_answers(collectIncorrectAnswers(newQuestion, question.getIncorrect_answers()));
 
     questionRepository.save(newQuestion);
   }
@@ -104,29 +104,4 @@ public class PopulateQuestions {
       return newCategory;
     }
   }
-
-
-//  private Difficulty getDifficulty(Trivia question) {
-//    Optional<Difficulty> difficulty = checkIfDifficultyExists(question.difficulty());
-//
-//    if (difficulty.isPresent()) {
-//      return difficulty.get();
-//    }
-//
-//    return saveDifficulty(question.difficulty());
-//  }
-//
-//  private Difficulty saveDifficulty(String difficulty) {
-//    Difficulty newDifficulty = new Difficulty();
-//    newDifficulty.setName(difficulty);
-//
-//    difficultyRepository.save(newDifficulty);
-//
-//    return newDifficulty;
-//  }
-//
-//  private Optional<Difficulty> checkIfDifficultyExists(String difficultyName) {
-//    return difficultyRepository.getDifficultyByName(difficultyName);
-//  }
-
 }
