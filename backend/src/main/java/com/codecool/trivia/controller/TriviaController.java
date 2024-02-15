@@ -12,12 +12,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 @RequestMapping("/api/trivia")
 public class TriviaController {
   private final PopulateQuestions populateDatabase;
-  private final WebClient webClient;
 
   @Autowired
-  public TriviaController(PopulateQuestions populateDatabase, WebClient webClient) {
+  public TriviaController(PopulateQuestions populateDatabase) {
     this.populateDatabase = populateDatabase;
-    this.webClient = webClient;
   }
 
   @GetMapping("/test")
