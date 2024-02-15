@@ -42,20 +42,30 @@ export default function Game({ onClose }) {
   const handleAnswerSelection = (answer) => {
     setSelectedAnswer(answer);
     setShowResult(true);
-  }
+  };
 
   return (
     <div className="game">
-      {showResult ? (
-        <Result selectedAnswer={selectedAnswer} onClose={onClose} onNext={handleNextQuestion} />
+      {quizQuest === null ? (
+        <div>Loading...</div>
       ) : (
-        <div>
-          <Question question={quizQuest.question} />
-          <Answers
-            answers={quizQuest.answers}
-            onSelectAnswer={(answer) => handleAnswerSelection(answer)}
-          />
-        </div>
+        <>
+          {showResult ? (
+            <Result
+              selectedAnswer={selectedAnswer}
+              onClose={onClose}
+              onNext={handleNextQuestion}
+            />
+          ) : (
+            <div>
+              <Question question={quizQuest.questionDescription} />
+              <Answers
+                answers={quizQuest.answers}
+                onSelectAnswer={(answer) => handleAnswerSelection(answer)}
+              />
+            </div>
+          )}
+        </>
       )}
     </div>
   );

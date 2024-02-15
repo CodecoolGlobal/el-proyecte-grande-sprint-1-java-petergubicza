@@ -14,7 +14,7 @@ export default function Result({ selectedAnswer, onClose, onNext }) {
         .catch((error) => {
           console.error("Error loading question:", error);
         });
-    }, []);
+    }, [selectedAnswer.id]);
 
     return (
         <div className="answers">
