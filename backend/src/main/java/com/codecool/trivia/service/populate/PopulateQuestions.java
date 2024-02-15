@@ -44,9 +44,9 @@ public class PopulateQuestions {
     Question newQuestion = new Question();
 
 
-    newQuestion.setQuestionDescription(question.question());
-    newQuestion.setCategory(checkQuestionCategory(question.category()));
-    newQuestion.setDifficulty(checkQuestionDifficulty(question.difficulty()));
+    newQuestion.setQuestionDescription(question.getQuestion());
+    newQuestion.setCategory(checkQuestionCategory(question.getCategory()));
+    newQuestion.setDifficulty(checkQuestionDifficulty(question.getDifficulty()));
 
     questionRepository.save(newQuestion);
 
