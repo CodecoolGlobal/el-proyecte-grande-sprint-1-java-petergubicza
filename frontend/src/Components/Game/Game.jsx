@@ -39,6 +39,11 @@ export default function Game({ onClose }) {
     getNewQuestion();
   }, [getNewQuestion]);
 
+  const handleAnswerSelection = (answer) => {
+    setSelectedAnswer(answer);
+    setShowResult(true);
+  }
+
   return (
     <div className="game">
       {showResult ? (
@@ -48,7 +53,7 @@ export default function Game({ onClose }) {
           <Question question={quizQuest.question} />
           <Answers
             answers={quizQuest.answers}
-            onSelectAnswer={(answer) => setSelectedAnswer(answer)}
+            onSelectAnswer={(answer) => handleAnswerSelection(answer)}
           />
         </div>
       )}
