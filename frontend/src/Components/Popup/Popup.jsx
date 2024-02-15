@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
 import './Popup';
 
 export default function Popup({ onClose, childComponent }) {
@@ -14,4 +13,4 @@ export default function Popup({ onClose, childComponent }) {
             </div>
         </div>
     );
-};
+}
