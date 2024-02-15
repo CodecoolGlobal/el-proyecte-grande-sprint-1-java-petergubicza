@@ -1,4 +1,4 @@
-package com.codecool.trivia.service.random_question;
+package com.codecool.trivia.service.game;
 
 import com.codecool.trivia.dto.AnswerDTO;
 import com.codecool.trivia.exception.NotFoundQuestionException;

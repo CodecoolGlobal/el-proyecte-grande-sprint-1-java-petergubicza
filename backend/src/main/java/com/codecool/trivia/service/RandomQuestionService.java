@@ -4,7 +4,7 @@ import com.codecool.trivia.dto.AnswerDTO;
 import com.codecool.trivia.dto.QuestionDTO;
 import com.codecool.trivia.exception.NotFoundQuestionException;
 import com.codecool.trivia.model.entity.Question;
-import com.codecool.trivia.service.random_question.RandomQuestionGenerator;
+import com.codecool.trivia.service.game.RandomQuestionGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
