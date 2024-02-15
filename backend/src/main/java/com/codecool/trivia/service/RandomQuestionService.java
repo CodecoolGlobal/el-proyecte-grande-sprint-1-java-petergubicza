@@ -14,8 +14,16 @@ public class RandomQuestionService {
     public RandomQuestionService(RandomQuestionGenerator randomQuestionGenerator) {
         this.randomQuestionGenerator = randomQuestionGenerator;
     }
-    public QuestionDTO getRandomQuestionDTO() {
+    /*public QuestionDTO getRandomQuestionDTO() {
         Question randomQuestion = this.randomQuestionGenerator.getRandomQuestion();
-        QuestionDTO randomQuestionDTO;
-    }
+        List<> incorrectAnswers
+        QuestionDTO randomQuestionDTO = new QuestionDTO(
+                randomQuestion.getId().toString(),
+                randomQuestion.getQuestion(),
+                randomQuestion.getCategory().toString(),
+                randomQuestion.getDifficulty().toString(),
+                randomQuestion.getIncorrect_answers().toArray()
+        );
+        return null;
+    }*/
 }
