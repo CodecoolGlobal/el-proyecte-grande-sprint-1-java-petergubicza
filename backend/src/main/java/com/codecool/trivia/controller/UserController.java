@@ -1,5 +1,7 @@
 package com.codecool.trivia.controller;
 
+import com.codecool.trivia.model.request_schema.PointRequest;
+import com.codecool.trivia.model.request_schema.UserRequest;
 import com.codecool.trivia.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
 package com.codecool.trivia.service;
 
-import com.codecool.trivia.controller.PointRequest;
-import com.codecool.trivia.controller.UserRequest;
+import com.codecool.trivia.model.request_schema.PointRequest;
+import com.codecool.trivia.model.request_schema.UserRequest;
 import com.codecool.trivia.logger.ConsoleLogger;
 import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
