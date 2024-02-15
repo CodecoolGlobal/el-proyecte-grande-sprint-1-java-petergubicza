@@ -16,7 +16,7 @@ public class Question {
     private Category category;
     @ManyToOne
     private Difficulty difficulty;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Answer correct_answer;
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> incorrect_answers;
