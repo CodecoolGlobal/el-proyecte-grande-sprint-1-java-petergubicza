@@ -21,6 +21,7 @@ public class QuestionController {
 
     @GetMapping(value = "randomQuestion")
     public ResponseEntity<QuestionDTO> getRandomQuestion() {
-        return null;
+        QuestionDTO randomQuestionDto = this.randomQuestionService.getRandomQuestionDTO();
+        return ResponseEntity.ok(randomQuestionDto);
     }
 }

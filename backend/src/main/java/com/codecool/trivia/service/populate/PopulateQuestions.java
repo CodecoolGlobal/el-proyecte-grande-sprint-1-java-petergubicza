@@ -44,7 +44,7 @@ public class PopulateQuestions {
   private void makeDatabaseEntry(Trivia question) {
     Question newQuestion = new Question();
 
-    newQuestion.setQuestion(question.question());
+    newQuestion.setQuestionDescription(question.question());
     newQuestion.setCategory(checkQuestionCategory(question.category()));
     newQuestion.setDifficulty(checkQuestionDifficulty(question.difficulty()));
 

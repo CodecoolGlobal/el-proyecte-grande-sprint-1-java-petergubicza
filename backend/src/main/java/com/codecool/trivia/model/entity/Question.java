@@ -1,7 +1,6 @@
 package com.codecool.trivia.model.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.NaturalId;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +11,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(unique = true)
-    private String question;
+    private String questionDescription;
     @ManyToOne
     private Category category;
     @ManyToOne
@@ -24,12 +23,12 @@ public class Question {
     public Question() {
     }
 
-    public String getQuestion() {
-        return question;
+    public String getQuestionDescription() {
+        return questionDescription;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setQuestionDescription(String question) {
+        this.questionDescription = question;
     }
 
     public Category getCategory() {
