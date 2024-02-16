@@ -20,7 +20,6 @@ export default function LeaderBoard() {
     for (let i = 0; i < 5; i++) {
       champsWithPoints[i] = champ[i] + ' - ' + point[i];
     }
-    console.log(champsWithPoints);
     return champsWithPoints
   }
 
@@ -30,7 +29,7 @@ export default function LeaderBoard() {
       <ol>
         {championsWithPoints.map((champion) => {
           return <li key={champion} className='playerList'>{champion}</li>
-        })};
+        })}
       </ol>
     </div>
   );

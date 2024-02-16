@@ -22,10 +22,10 @@ export default function Home() {
 			<div>
 				<User triviaUser={mockUser}/>
 			</div>
-			<button type="button" onClick={(e) => handleClose(e)}>
+			<button type="button" class="button" onClick={(e) => handleClose(e)}>
 				Casual
 			</button>
-			<button type="button" disabled={true}>
+			<button type="button" class="button" disabled={true}>
 				Ranked
 			</button>
 			{popup && <Popup onClose={handleClose} childComponent={<Game onClose={handleClose}/>}></Popup>}
