@@ -16,28 +16,19 @@ import java.util.Random;
 @Component
 public class RandomQuestionGenerator {
     private final QuestionRepository questionRepository;
-    private final Random random;
 
     @Autowired
     public RandomQuestionGenerator(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
-        this.random = new Random();
-    }
-
-    private int getMaxAmountOfQuestionsFromDB() {
-        return this.questionRepository.findAll()
-                .size();
-    }
-
-    private int getRandomNumberInBound(int upperBound) {
-        return this.random.nextInt(upperBound);
     }
 
     public Question getRandomQuestion() {
-        int numberOfQuestions = getMaxAmountOfQuestionsFromDB();
-        int validRandomNumber = getRandomNumberInBound(numberOfQuestions);
-        List<Question> questions = this.questionRepository.findAll();
-        return questions.get(validRandomNumber);
+        Optional<Question> randomQuestion = this.questionRepository.findRandomQuestion();
+        if (randomQuestion.isPresent()) {
+            return randomQuestion.get();
+        } else {
+            throw new NotFoundQuestionException();
+        }
     }
 
     public List<AnswerDTO> getAnswersForCertainQuestion(Question question) {
