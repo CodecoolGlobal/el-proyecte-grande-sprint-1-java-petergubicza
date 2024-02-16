@@ -1,4 +1,10 @@
 .playerList {
     color: blue;
-    font-size: 30px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#header {
+    color: darkblue;
+    font-size: xx-large;
 }

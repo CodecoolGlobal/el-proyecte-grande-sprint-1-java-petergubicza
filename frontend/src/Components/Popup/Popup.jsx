@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import './Popup';
+import './Popup.css';
 
 export default function Popup({ onClose, childComponent }) {
     return (
         <div className="popup">
-            I am the popup page
-            <button className="close-button" onClick={onClose}>
+            <button className="button" onClick={onClose}>
                 Close
             </button>
             <div className="popup-content">

@@ -7,29 +7,29 @@ export default function Login() {
 	}
 	return (
 		<div>
-			Login
-			<form>
+			<h1>Login</h1>
+			<form class="form">
 				<div>
-					<label htmlFor="userName">Username</label>
-					<input name="userName" type="text" />
+					<label htmlFor="userName">Username: </label>
+					<input class="inputField" name="userName" type="text" />
 				</div>
 				<div>
-					<label htmlFor="password">Password</label>
-					<input name="password" type="password" />
+					<label htmlFor="password">Password: </label>
+					<input class="inputField" name="password" type="password" />
 				</div>
-				<div className="buttons">
-					<button type="submit" disabled={true}>
-						Login
+				<div>
+					<button className="button" type="submit" disabled={true}>
+						Log in
 					</button>
 				</div>
-				<div className="buttons">
-					<button type="submit" disabled={true} onClick={(e) => test(e)}>
+				<div>
+					<button className="button" type="submit" disabled={true} onClick={(e) => test(e)}>
 						Sign up
 					</button>
 				</div>
-				<div className="buttons">
+				<div>
 					<Link to={'home'}>
-						<button type="button" disabled={false}>
+						<button className="button" type="button" disabled={false}>
 							Play as Guest
 						</button>
 					</Link>
