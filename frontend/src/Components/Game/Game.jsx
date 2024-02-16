@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchData } from "../fetch";
 import Question from "./Questions";
 import Answers from "./Answers";
@@ -7,63 +7,65 @@ import Result from "./Result";
 import "./Game.css";
 
 export default function Game({ onClose }) {
-  const [question, setQuestion] = useState("");
-  const [answers, setAnswers] = useState([]);
-  const [id, setId] = useState(0);
+  const [quizQuest, setQuizQuest] = useState(null);
   const [showResult, setShowResult] = useState(false);
-  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  useEffect(() => {
+  const getNewQuestion = useCallback((locked = () => false) => {
     fetchData("/api/trivia/randomQuestion")
       .then((data) => {
-        setQuestion(data.question);
-        setAnswers(data.answers);
-        setId(data.id);
+        if (locked() === true) {
+          return;
+        }
+        setQuizQuest(data);
       })
       .catch((error) => {
         console.error("Error loading question:", error);
       });
   }, []);
 
-  function displayResult() {
-    setShowResult(true);
-  }
+  useEffect(() => {
+    let lock = false;
 
-  function checkIfAnswerCorrect(isCorrect) {
-    setIsAnswerCorrect(isCorrect);
-  }
+    getNewQuestion(() => lock);
 
-  function getNewQuestion() {
+    return () => {
+      lock = true;
+    };
+  }, [getNewQuestion]);
+
+  const handleNextQuestion = useCallback(() => {
     setShowResult(false);
-    fetchData("/api/trivia/randomQuestion")
-      .then((data) => {
-        setQuestion(data.question);
-        setAnswers(data.answers);
-        setId(data.id);
-      })
-      .catch((error) => {
-        console.error("Error loading question:", error);
-      });
-  }
+    getNewQuestion();
+  }, [getNewQuestion]);
+
+  const handleAnswerSelection = (answer) => {
+    setSelectedAnswer(answer);
+    setShowResult(true);
+  };
 
   return (
     <div className="game">
-      {showResult ? (
-        <Result
-          isCorrect={isAnswerCorrect}
-          onClose={onClose}
-          onNext={getNewQuestion}
-        />
+      {quizQuest === null ? (
+        <div>Loading...</div>
       ) : (
-        <div>
-          <Question question={question} />
-          <Answers
-            answers={answers}
-            questionId={id}
-            displayResult={displayResult}
-            result={checkIfAnswerCorrect}
-          />
-        </div>
+        <>
+          {showResult ? (
+            <Result
+              selectedAnswer={selectedAnswer}
+              onClose={onClose}
+              onNext={handleNextQuestion}
+            />
+          ) : (
+            <div>
+              <Question question={quizQuest.questionDescription} />
+              <Answers
+                answers={quizQuest.answers}
+                onSelectAnswer={(answer) => handleAnswerSelection(answer)}
+              />
+            </div>
+          )}
+        </>
       )}
     </div>
   );

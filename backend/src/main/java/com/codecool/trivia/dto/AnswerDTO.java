@@ -1,4 +1,6 @@
 package com.codecool.trivia.dto;
 
-public record AnswerDTO(String correctAnswer) {
+import java.util.UUID;
+
+public record AnswerDTO(UUID id, String description) {
 }

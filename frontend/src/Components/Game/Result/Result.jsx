@@ -1,7 +1,23 @@
-/* eslint-disable react/prop-types */
-import './Result.css';
+import { useEffect, useState } from "react";
+import { fetchData } from "../../fetch";
 
-export default function Result({ isCorrect, onClose, onNext }) {
+/* eslint-disable react/prop-types */
+
+import './Result.css';
+export default function Result({ selectedAnswer, onClose, onNext }) {
+
+    const [isCorrect, setIsCorrect] = useState(null);
+
+    useEffect(() => {
+        fetchData(`/api/trivia/answerCheck?id=${selectedAnswer.id}`)
+        .then((data) => {
+          setIsCorrect(data.isCorrect)
+        })
+        .catch((error) => {
+          console.error("Error loading question:", error);
+        });
+    }, [selectedAnswer.id]);
+
     return (
         <div className="answers">
             {isCorrect ? (
