@@ -23,6 +23,14 @@ public class Question {
     public Question() {
     }
 
+    public Question(String questionDescription, Category category, Difficulty difficulty, Answer correct_answer, List<Answer> incorrect_answers) {
+        this.questionDescription = questionDescription;
+        this.category = category;
+        this.difficulty = difficulty;
+        this.correct_answer = correct_answer;
+        this.incorrect_answers = incorrect_answers;
+    }
+
     public String getQuestionDescription() {
         return questionDescription;
     }
