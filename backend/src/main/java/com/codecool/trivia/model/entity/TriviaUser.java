@@ -3,77 +3,84 @@ package com.codecool.trivia.model.entity;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 public class TriviaUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    @Column(unique = true)
-    private String name;
-    private String password;
-    private double points;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
+  @Column(unique = true)
+  private String name;
+  private String password;
+  private double points;
+  @ManyToMany
+  private Set<RoleEntity> roles;
 
-    public TriviaUser() {
-    }
+  public TriviaUser() {
+  }
 
-    public TriviaUser(String name, String password) {
-        this.name = name;
-        this.password = password;
-        this.points = 0;
-    }
+  public TriviaUser(String name, String password) {
+    this.name = name;
+    this.password = password;
+    this.points = 0;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public boolean add(RoleEntity roleEntity) {
+    return roles.add(roleEntity);
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public Set<RoleEntity> getRoles() {
+    return roles;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setRoles(Set<RoleEntity> roles) {
+    this.roles = roles;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public double getPoints() {
-        return points;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setPoints(double points) {
-        this.points = points;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public UUID getId() {
-        return id;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+  public double getPoints() {
+    return points;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TriviaUser that = (TriviaUser) o;
-        return Objects.equals(getId(), that.getId());
-    }
+  public void setPoints(double points) {
+    this.points = points;
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
+  public UUID getId() {
+    return id;
+  }
 
-    @Override
-    public String toString() {
-        return "TriviaUser{" +
-                "name='" + name + '\'' +
-                ", points=" + points +
-                '}';
-    }
+  public void setId(UUID id) {
+    this.id = id;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TriviaUser that = (TriviaUser) o;
+    return Objects.equals(getId(), that.getId()) && Objects.equals(getName(), that.getName()) && Objects.equals(getPassword(), that.getPassword()) && Objects.equals(getRoles(), that.getRoles());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId(), getName(), getPassword(), getRoles());
+  }
 }
