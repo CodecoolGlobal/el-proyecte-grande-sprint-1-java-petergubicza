@@ -16,7 +16,7 @@ public class TriviaUser {
   private String password;
   private double points;
   @ManyToMany
-  private Set<RoleEntity> roles;
+  private Set<Role> roles;
 
   public TriviaUser() {
   }
@@ -27,15 +27,15 @@ public class TriviaUser {
     this.points = 0;
   }
 
-  public boolean add(RoleEntity roleEntity) {
-    return roles.add(roleEntity);
+  public boolean addRole(Role role) {
+    return roles.add(role);
   }
 
-  public Set<RoleEntity> getRoles() {
+  public Set<Role> getRoles() {
     return roles;
   }
 
-  public void setRoles(Set<RoleEntity> roles) {
+  public void setRoles(Set<Role> roles) {
     this.roles = roles;
   }
 

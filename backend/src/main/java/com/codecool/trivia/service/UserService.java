@@ -1,11 +1,15 @@
 package com.codecool.trivia.service;
 
+import com.codecool.trivia.model.entity.Role;
 import com.codecool.trivia.model.request_schema.PointRequest;
 import com.codecool.trivia.model.request_schema.UserRequest;
 import com.codecool.trivia.logger.ConsoleLogger;
 import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class UserService {

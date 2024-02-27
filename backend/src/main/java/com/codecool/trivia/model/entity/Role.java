@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "role")
-public class RoleEntity {
+public class Role {
   @Id
   @Enumerated(EnumType.STRING)
   @Column(unique = true)
@@ -16,10 +16,10 @@ public class RoleEntity {
   @ManyToMany
   private List<TriviaUser> triviaUsers;
 
-  public RoleEntity() {
+  public Role() {
   }
 
-  public RoleEntity(RoleName role) {
+  public Role(RoleName role) {
     this.role = role;
   }
 
@@ -47,7 +47,7 @@ public class RoleEntity {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    RoleEntity that = (RoleEntity) o;
+    Role that = (Role) o;
     return getRole() == that.getRole();
   }
 
