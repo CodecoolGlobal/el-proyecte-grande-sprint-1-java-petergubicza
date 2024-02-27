@@ -1,11 +1,15 @@
 package com.codecool.trivia.service;
 
+import com.codecool.trivia.model.entity.Role;
 import com.codecool.trivia.model.request_schema.PointRequest;
 import com.codecool.trivia.model.request_schema.UserRequest;
 import com.codecool.trivia.logger.ConsoleLogger;
 import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -47,5 +51,14 @@ public class UserService {
       logger.logError(e.toString());
       return false;
     }
+  }
+  public void addRoleFor(TriviaUser triviaUser, Role role) {
+    TriviaUser triviaUser1 = userRepository.findTriviaUserByName(triviaUser.getName());
+    Set<Role> oldRoles = triviaUser1.getRoles();
+
+    Set<Role> copiedRoles = new HashSet<>(oldRoles);
+    copiedRoles.add(role);
+
+    userRepository.save(triviaUser1);
   }
 }

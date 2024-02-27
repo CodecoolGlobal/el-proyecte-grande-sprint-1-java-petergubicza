@@ -1,6 +1,6 @@
 package com.codecool.trivia.configuration;
 
-import com.codecool.trivia.model.entity.RoleEntity;
+import com.codecool.trivia.model.entity.Role;
 import com.codecool.trivia.model.enums.RoleName;
 import com.codecool.trivia.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class DatabaseConfiguration {
   public CommandLineRunner initializeRoles() {
     return args -> {
       for (RoleName role : RoleName.values()) {
-        roleRepository.save(new RoleEntity(role));
+        roleRepository.save(new Role(role));
       }
     };
   }
