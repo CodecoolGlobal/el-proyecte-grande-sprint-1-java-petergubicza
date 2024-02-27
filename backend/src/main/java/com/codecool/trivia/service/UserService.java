@@ -52,13 +52,4 @@ public class UserService {
       return false;
     }
   }
-  public void addRoleFor(TriviaUser triviaUser, Role role) {
-    TriviaUser triviaUser1 = userRepository.findTriviaUserByName(triviaUser.getName());
-    Set<Role> oldRoles = triviaUser1.getRoles();
-
-    Set<Role> copiedRoles = new HashSet<>(oldRoles);
-    copiedRoles.add(role);
-
-    userRepository.save(triviaUser1);
-  }
 }
