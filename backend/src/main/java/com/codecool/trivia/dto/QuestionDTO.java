@@ -2,6 +2,7 @@ package com.codecool.trivia.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class QuestionDTO {
@@ -19,5 +20,18 @@ public class QuestionDTO {
 
     public List<AnswerDTO> getAnswers() {
         return answers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QuestionDTO that = (QuestionDTO) o;
+        return Objects.equals(questionDescription, that.questionDescription) && Objects.equals(answers, that.answers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(questionDescription, answers);
     }
 }
