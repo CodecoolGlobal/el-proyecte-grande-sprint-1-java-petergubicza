@@ -1,4 +1,4 @@
-package com.codecool.trivia.dto;
+package com.codecool.trivia.dto.frontend_request;
 
 import java.util.UUID;
 

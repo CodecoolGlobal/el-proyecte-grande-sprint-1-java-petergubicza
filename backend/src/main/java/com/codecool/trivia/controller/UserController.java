@@ -1,12 +1,10 @@
 package com.codecool.trivia.controller;
 
-import com.codecool.trivia.model.request_schema.PointRequest;
-import com.codecool.trivia.model.request_schema.UserRequest;
+import com.codecool.trivia.dto.frontend_request.PointRequestDTO;
+import com.codecool.trivia.dto.frontend_request.UserRequestDTO;
 import com.codecool.trivia.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +18,7 @@ public class UserController {
   }
 
   @PostMapping(value = "/register")
-  public ResponseEntity<String> addUser(@RequestBody UserRequest userRequest) {
+  public ResponseEntity<String> addUser(@RequestBody UserRequestDTO userRequest) {
     if (userService.createUser(userRequest)) {
       return ResponseEntity.ok("User created successfully!");
     } else {
@@ -29,12 +27,12 @@ public class UserController {
   }
 
   @PostMapping(value = "/signin")
-  public ResponseEntity<?> loginUser(@RequestBody UserRequest userRequest) {
+  public ResponseEntity<?> loginUser(@RequestBody UserRequestDTO userRequest) {
     return userService.login(userRequest);
   }
 
   @PatchMapping(value = "/addpoints")
-  public ResponseEntity<String> addPoints(@RequestBody PointRequest pointRequest) {
+  public ResponseEntity<String> addPoints(@RequestBody PointRequestDTO pointRequest) {
     if (userService.addPointsToUser(pointRequest)) {
       return ResponseEntity.ok("Points added to user!");
     } else {

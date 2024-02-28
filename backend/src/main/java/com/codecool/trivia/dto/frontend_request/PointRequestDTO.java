@@ -1,8 +1,8 @@
-package com.codecool.trivia.model.request_schema;
+package com.codecool.trivia.dto.frontend_request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record PointRequest(@JsonProperty String name, @JsonProperty int extraPoints) {
+public record PointRequestDTO(@JsonProperty String name, @JsonProperty int extraPoints) {
 }

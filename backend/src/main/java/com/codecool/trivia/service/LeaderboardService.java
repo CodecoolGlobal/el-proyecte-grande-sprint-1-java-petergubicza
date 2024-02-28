@@ -1,12 +1,13 @@
 package com.codecool.trivia.service;
 
-import com.codecool.trivia.dto.LeaderboardDTO;
-import com.codecool.trivia.logger.ConsoleLogger;
+import com.codecool.trivia.dto.frontend_request.leaderboard.LeaderboardDTO;
+import com.codecool.trivia.dto.frontend_request.leaderboard.UserScore;
 import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,14 +23,12 @@ public class LeaderboardService {
   public LeaderboardDTO findTopFiveUsers() {
     List<TriviaUser> topPlayers = userRepository.findTop5ByOrderByPointsDesc();
 
-    String[] players = new String[LEADERBOARD_LENGTH];
-    double[] points = new double[LEADERBOARD_LENGTH];
+    UserScore[] leaderboard = new UserScore[topPlayers.size()];
 
     for (int i = 0; i < topPlayers.size(); i++) {
-      players[i] = topPlayers.get(i).getName();
-      points[i] = topPlayers.get(i).getPoints();
+      leaderboard[i] = new UserScore(topPlayers.get(i).getName(), topPlayers.get(i).getPoints());
     }
 
-    return new LeaderboardDTO(players, points);
+    return new LeaderboardDTO(leaderboard);
   }
 }

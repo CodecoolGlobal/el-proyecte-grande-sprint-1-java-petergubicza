@@ -3,8 +3,8 @@ package com.codecool.trivia.service;
 import com.codecool.trivia.dto.payload.JwtResponse;
 import com.codecool.trivia.model.entity.Role;
 import com.codecool.trivia.model.enums.RoleName;
-import com.codecool.trivia.model.request_schema.PointRequest;
-import com.codecool.trivia.model.request_schema.UserRequest;
+import com.codecool.trivia.dto.frontend_request.PointRequestDTO;
+import com.codecool.trivia.dto.frontend_request.UserRequestDTO;
 import com.codecool.trivia.logger.ConsoleLogger;
 import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
@@ -43,7 +43,7 @@ public class UserService {
   }
 
   @Transactional
-  public boolean createUser(UserRequest userRequest) {
+  public boolean createUser(UserRequestDTO userRequest) {
     try {
       String hashedPassword = encoder.encode(userRequest.password());
 
@@ -63,7 +63,7 @@ public class UserService {
     }
   }
 
-  public boolean addPointsToUser(PointRequest pointRequest) {
+  public boolean addPointsToUser(PointRequestDTO pointRequest) {
     try {
       TriviaUser triviaUser = userRepository.findTriviaUserByName(pointRequest.name()).get();
 
@@ -96,7 +96,7 @@ public class UserService {
   }
 
   @Transactional
-  public ResponseEntity<?> login(UserRequest userRequest) {
+  public ResponseEntity<?> login(UserRequestDTO userRequest) {
     Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(userRequest.name(), userRequest.password()));
 

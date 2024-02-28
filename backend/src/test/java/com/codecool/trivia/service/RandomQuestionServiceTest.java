@@ -1,10 +1,7 @@
 package com.codecool.trivia.service;
 
-import com.codecool.trivia.dto.AnswerDTO;
-import com.codecool.trivia.dto.QuestionDTO;
-import com.codecool.trivia.model.entity.Answer;
-import com.codecool.trivia.model.entity.Category;
-import com.codecool.trivia.model.entity.Difficulty;
+import com.codecool.trivia.dto.frontend_request.AnswerDTO;
+import com.codecool.trivia.dto.frontend_request.QuestionDTO;
 import com.codecool.trivia.model.entity.Question;
 import com.codecool.trivia.service.game.RandomQuestionGenerator;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

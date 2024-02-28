@@ -1,9 +1,8 @@
-package com.codecool.trivia.dto;
+package com.codecool.trivia.dto.frontend_request;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 public class QuestionDTO {
     private String questionDescription;
