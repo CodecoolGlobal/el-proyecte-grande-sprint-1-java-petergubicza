@@ -15,7 +15,7 @@ public class TriviaUser {
   @Column(unique = true)
   private String name;
   private String password;
-  private double points;
+  private int points;
   @ManyToMany
   private Set<Role> roles;
 
@@ -57,11 +57,11 @@ public class TriviaUser {
     this.password = password;
   }
 
-  public double getPoints() {
+  public int getPoints() {
     return points;
   }
 
-  public void setPoints(double points) {
+  public void setPoints(int points) {
     this.points = points;
   }
 

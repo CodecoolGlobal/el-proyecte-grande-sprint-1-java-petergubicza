@@ -67,8 +67,8 @@ public class UserService {
     try {
       TriviaUser triviaUser = userRepository.findTriviaUserByName(pointRequest.name()).get();
 
-      double userPoints = triviaUser.getPoints();
-      double updatedPoints = userPoints + pointRequest.extraPoints();
+      int userPoints = triviaUser.getPoints();
+      int updatedPoints = userPoints + pointRequest.extraPoints();
 
       triviaUser.setPoints(updatedPoints);
       userRepository.save(triviaUser);

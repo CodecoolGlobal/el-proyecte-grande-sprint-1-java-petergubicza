@@ -10,7 +10,7 @@ public class PopulateUsers {
   private final static int NUMBER_OF_CHAMPIONS = 5;
   private final static String[] NAMES = {"Einstein", "Vágó István", "Sheldon", "Dumb", "Dumber"};
   private final static String[] PASSWORDS = {"pw1", "pw2", "pw3", "pw4", "pw5"};
-  private final static double[] POINTS = {200, 100, 50, 10, 5};
+  private final static int[] POINTS = {200, 100, 50, 10, 5};
   UserRepository userRepository;
 
   @Autowired

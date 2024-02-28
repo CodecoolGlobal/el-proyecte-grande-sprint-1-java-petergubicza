@@ -17,7 +17,7 @@ public class Question {
     @ManyToOne
     private Difficulty difficulty;
     @OneToOne
-    private Answer correct_answer;
+    private Answer correctAnswer;
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> incorrect_answers;
     public Question() {
@@ -55,12 +55,12 @@ public class Question {
         this.id = id;
     }
 
-    public Answer getCorrect_answer() {
-        return correct_answer;
+    public Answer getCorrectAnswer() {
+        return correctAnswer;
     }
 
-    public void setCorrect_answer(Answer correct_answer) {
-        this.correct_answer = correct_answer;
+    public void setCorrectAnswer(Answer correct_answer) {
+        this.correctAnswer = correct_answer;
     }
 
     public List<Answer> getIncorrect_answers() {

@@ -1,7 +1,6 @@
 package com.codecool.trivia.model.entity;
 
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.UUID;
 
@@ -11,7 +10,7 @@ public class Answer {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
   private String description;
-  private boolean is_correct;
+  private boolean isCorrect;
   @ManyToOne
   @JoinColumn(name = "question_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_answer_question"))
   private Question question;
@@ -27,12 +26,12 @@ public class Answer {
     this.description = description;
   }
 
-  public boolean isIs_correct() {
-    return is_correct;
+  public boolean isIsCorrect() {
+    return isCorrect;
   }
 
-  public void setIs_correct(boolean is_correct) {
-    this.is_correct = is_correct;
+  public void setIsCorrect(boolean is_correct) {
+    this.isCorrect = is_correct;
   }
 
   public Question getQuestion() {

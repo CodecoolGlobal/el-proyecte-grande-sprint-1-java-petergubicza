@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Component
 public class RandomQuestionGenerator {
@@ -37,7 +36,7 @@ public class RandomQuestionGenerator {
             throw new NotFoundQuestionException(question.getQuestionDescription());
         } else {
             List<Answer> answersForQuestion = optionalQuestion.get().getIncorrect_answers();
-            answersForQuestion.add(optionalQuestion.get().getCorrect_answer());
+            answersForQuestion.add(optionalQuestion.get().getCorrectAnswer());
 
             List<AnswerDTO> answerDTOS = new ArrayList<>();
 

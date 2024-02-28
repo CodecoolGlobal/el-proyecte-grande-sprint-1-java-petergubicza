@@ -6,7 +6,6 @@ import com.codecool.trivia.repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.management.NotificationEmitter;
 import java.util.UUID;
 
 @Service
@@ -23,6 +22,6 @@ public class AnswerCheckService {
         if (answer == null) {
             System.out.println("JÓ NEM LYO NEM JAO");
         }
-        return new AnswerCheckDTO(answer.isIs_correct());
+        return new AnswerCheckDTO(answer.isIsCorrect());
     }
 }

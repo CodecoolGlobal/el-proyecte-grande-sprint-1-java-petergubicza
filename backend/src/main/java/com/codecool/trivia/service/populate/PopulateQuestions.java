@@ -52,7 +52,7 @@ public class PopulateQuestions {
 
     questionRepository.save(newQuestion);
 
-    newQuestion.setCorrect_answer(createAnswer(newQuestion, question.getCorrect_answer(), true));
+    newQuestion.setCorrectAnswer(createAnswer(newQuestion, question.getCorrect_answer(), true));
     newQuestion.setIncorrect_answers(collectIncorrectAnswers(newQuestion, question.getIncorrect_answers()));
 
     questionRepository.save(newQuestion);
@@ -71,7 +71,7 @@ public class PopulateQuestions {
   private Answer createAnswer(Question questionEntity, String answer, boolean isCorrect) {
     Answer newAnswer = new Answer();
     newAnswer.setDescription(answer);
-    newAnswer.setIs_correct(isCorrect);
+    newAnswer.setIsCorrect(isCorrect);
     newAnswer.setQuestion(questionEntity);
     answerRepository.save(newAnswer);
 
