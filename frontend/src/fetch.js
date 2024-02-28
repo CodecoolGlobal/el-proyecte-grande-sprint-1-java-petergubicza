@@ -5,7 +5,7 @@ async function fetchData(url) {
         return data;
     } catch (error) {
         console.error('Error fetching data:', error);
-        throw error; // Dobd vissza a hibát, hogy a hívó komponens kezelhesse
+        throw error;
     }
 }
 

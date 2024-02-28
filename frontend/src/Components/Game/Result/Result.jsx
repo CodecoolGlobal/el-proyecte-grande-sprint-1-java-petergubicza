@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchData } from "../../fetch";
+import { fetchData } from "../../../fetch";
 
 /* eslint-disable react/prop-types */
 

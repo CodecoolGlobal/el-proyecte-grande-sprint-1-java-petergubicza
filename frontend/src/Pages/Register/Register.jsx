@@ -1,30 +1,31 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { postData } from "../../post";
-import "./Login.css";
+import "./Register.css";
 
-export default function Login() {
+export default function Register() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  async function signIn() {
+  async function register(e) {
+    e.preventDefault();
+
     const body = {
       name,
       password,
     };
 
-    const response = await postData(`/api/user/signin`, body);
+    const response = await postData(`/api/user/register`, body);
     
-    if (response.jwt) {
-      console.log("ok");
-      navigate("/home");
-    }
+    if (response) {
+        navigate("/");
+      }
   }
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Register</h1>
       <form className="form">
         <div>
           <label htmlFor="userName">Username: </label>
@@ -47,26 +48,19 @@ export default function Login() {
           />
         </div>
         <div>
-          <button
-            className="button"
-            type="button"
-            disabled={false}
-            onClick={signIn}
-          >
-            Sign in
-          </button>
-        </div>
-        <div>
-          <Link to={"register"}>
-            <button className="button" type="button" disabled={false}>
+            <button
+              className="button"
+              type="button"
+              disabled={false}
+              onClick={register}
+            >
               Register
             </button>
-          </Link>
         </div>
         <div>
-          <Link to={"home"}>
+          <Link to={"/"}>
             <button className="button" type="button" disabled={false}>
-              Play as Guest
+              Back
             </button>
           </Link>
         </div>

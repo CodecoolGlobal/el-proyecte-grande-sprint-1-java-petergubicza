@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useCallback, useEffect, useState } from "react";
-import { fetchData } from "../fetch";
+import { fetchData } from "../../fetch";
 import Question from "./Questions";
 import Answers from "./Answers";
 import Result from "./Result";
