@@ -1,5 +1,5 @@
 import './LeaderBoard.css';
-import { fetchData } from '../fetch';
+import { fetchData } from '../../fetch';
 import { useState, useEffect } from 'react';
 
 export default function LeaderBoard() {
