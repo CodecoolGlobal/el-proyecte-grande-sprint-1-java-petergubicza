@@ -3,6 +3,7 @@ package com.codecool.trivia.service.populate;
 import com.codecool.trivia.model.report.Trivia;
 import com.codecool.trivia.model.report.TriviaReport;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -10,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class TriviaAPIService {
   private final WebClient webClient;
 
+  @Autowired
   public TriviaAPIService(WebClient webClient) {
     this.webClient = webClient;
   }

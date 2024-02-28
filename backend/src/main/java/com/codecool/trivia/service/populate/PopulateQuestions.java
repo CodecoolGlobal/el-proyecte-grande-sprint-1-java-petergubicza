@@ -10,6 +10,7 @@ import com.codecool.trivia.repository.AnswerRepository;
 import com.codecool.trivia.repository.CategoryRepository;
 import com.codecool.trivia.repository.DifficultyRepository;
 import com.codecool.trivia.repository.QuestionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class PopulateQuestions {
   private final CategoryRepository categoryRepository;
   private final AnswerRepository answerRepository;
 
+  @Autowired
   public PopulateQuestions(TriviaAPIService triviaAPIService, QuestionRepository questionRepository, DifficultyRepository difficultyRepository, CategoryRepository categoryRepository, AnswerRepository answerRepository) {
     this.triviaAPIService = triviaAPIService;
     this.questionRepository = questionRepository;

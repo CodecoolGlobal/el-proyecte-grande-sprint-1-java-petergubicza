@@ -5,6 +5,7 @@ import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
 import com.codecool.trivia.security.jwt.AuthEntryPointJwt;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   private final UserRepository userRepository;
   private final AuthEntryPointJwt unauthorizedHandler;
 
+  @Autowired
   public UserDetailsServiceImpl(UserRepository userRepository, AuthEntryPointJwt unauthorizedHandler) {
     this.userRepository = userRepository;
     this.unauthorizedHandler = unauthorizedHandler;

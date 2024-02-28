@@ -18,12 +18,6 @@ public class Category {
   public Category() {
   }
 
-  public Category(UUID id, String name, List<Question> questions) {
-    this.id = id;
-    this.name = name;
-    this.questions = questions;
-  }
-
   public String getName() {
     return name;
   }

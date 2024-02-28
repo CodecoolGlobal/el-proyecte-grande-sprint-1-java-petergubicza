@@ -1,6 +1,7 @@
 package com.codecool.trivia.model.entity;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.UUID;
 
@@ -16,13 +17,6 @@ public class Answer {
   private Question question;
 
   public Answer() {
-  }
-
-  public Answer(UUID id, String description, boolean is_correct, Question question) {
-    this.id = id;
-    this.description = description;
-    this.is_correct = is_correct;
-    this.question = question;
   }
 
   public String getDescription() {

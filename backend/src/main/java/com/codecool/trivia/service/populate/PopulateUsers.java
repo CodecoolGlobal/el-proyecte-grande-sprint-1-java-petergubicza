@@ -2,6 +2,7 @@ package com.codecool.trivia.service.populate;
 
 import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +13,7 @@ public class PopulateUsers {
   private final static double[] POINTS = {200, 100, 50, 10, 5};
   UserRepository userRepository;
 
+  @Autowired
   public PopulateUsers(UserRepository userRepository) {
     this.userRepository = userRepository;
   }

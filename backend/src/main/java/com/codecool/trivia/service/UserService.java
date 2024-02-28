@@ -10,6 +10,7 @@ import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
 import com.codecool.trivia.security.jwt.JwtUtils;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,6 +34,7 @@ public class UserService {
   private final JwtUtils jwtUtils;
   private final PasswordEncoder encoder;
 
+  @Autowired
   public UserService(UserRepository userRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils, PasswordEncoder encoder) {
     this.userRepository = userRepository;
     this.authenticationManager = authenticationManager;

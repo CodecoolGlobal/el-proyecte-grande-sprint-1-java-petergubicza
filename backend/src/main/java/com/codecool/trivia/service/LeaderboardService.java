@@ -4,6 +4,7 @@ import com.codecool.trivia.dto.LeaderboardDTO;
 import com.codecool.trivia.logger.ConsoleLogger;
 import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +13,10 @@ import java.util.List;
 public class LeaderboardService {
   private static final int LEADERBOARD_LENGTH = 5;
   private final UserRepository userRepository;
-  private final ConsoleLogger logger;
 
-  public LeaderboardService(UserRepository userRepository, ConsoleLogger logger) {
+  @Autowired
+  public LeaderboardService(UserRepository userRepository) {
     this.userRepository = userRepository;
-    this.logger = logger;
   }
 
   public LeaderboardDTO findTopFiveUsers() {

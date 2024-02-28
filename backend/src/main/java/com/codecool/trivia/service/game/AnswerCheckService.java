@@ -3,6 +3,7 @@ package com.codecool.trivia.service.game;
 import com.codecool.trivia.dto.AnswerCheckDTO;
 import com.codecool.trivia.model.entity.Answer;
 import com.codecool.trivia.repository.AnswerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.management.NotificationEmitter;
@@ -12,6 +13,7 @@ import java.util.UUID;
 public class AnswerCheckService {
     private final AnswerRepository answerRepository;
 
+    @Autowired
     public AnswerCheckService(AnswerRepository answerRepository) {
         this.answerRepository = answerRepository;
     }

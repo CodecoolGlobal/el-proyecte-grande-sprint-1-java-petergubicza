@@ -4,6 +4,7 @@ import com.codecool.trivia.logger.Logger;
 import com.codecool.trivia.security.jwt.AuthEntryPointJwt;
 import com.codecool.trivia.security.jwt.AuthenticationTokenFilter;
 import com.codecool.trivia.security.jwt.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +24,7 @@ public class WebSecurityConfig {
   private final AuthEntryPointJwt unauthorizedHandler;
   private final JwtUtils jwtUtils;
 
+  @Autowired
   public WebSecurityConfig(UserDetailsService userDetailsService, AuthEntryPointJwt unauthorizedHandler, JwtUtils jwtUtils) {
     this.userDetailsService = userDetailsService;
     this.unauthorizedHandler = unauthorizedHandler;
