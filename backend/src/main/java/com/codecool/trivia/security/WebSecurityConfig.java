@@ -48,7 +48,8 @@ public class WebSecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth ->
                     auth.requestMatchers("/api/user/register").permitAll()
-                            .requestMatchers("/api/user/signin").hasRole("GUEST")
+                            .requestMatchers("/api/user/signin").permitAll()
+                            .requestMatchers("/api/leaderboard/leaderboard").permitAll()
                             .requestMatchers("/api/user/addpoints").hasRole("GUEST")
                             .requestMatchers("/error").permitAll()
                             .anyRequest().authenticated()
