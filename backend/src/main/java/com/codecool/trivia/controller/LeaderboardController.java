@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/trivia")
+@RequestMapping(value = "/api/leaderboard")
 public class LeaderboardController {
   private static final int LEADERBOARD_LENGTH = 5;
   private final LeaderboardService leaderboardService;

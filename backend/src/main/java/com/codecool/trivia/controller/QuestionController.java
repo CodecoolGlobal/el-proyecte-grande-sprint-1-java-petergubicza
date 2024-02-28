@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/api/trivia/")
+@RequestMapping(value = "/api/question")
 public class QuestionController {
     private final RandomQuestionService randomQuestionService;
     private final AnswerCheckService answerCheckService;
