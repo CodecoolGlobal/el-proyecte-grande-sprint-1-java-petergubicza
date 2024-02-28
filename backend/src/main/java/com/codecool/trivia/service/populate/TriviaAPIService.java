@@ -1,7 +1,7 @@
 package com.codecool.trivia.service.populate;
 
-import com.codecool.trivia.model.report.Trivia;
-import com.codecool.trivia.model.report.TriviaReport;
+import com.codecool.trivia.dto.external_api_response.TriviaDTO;
+import com.codecool.trivia.dto.external_api_response.TriviaApiResponseDTO;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,13 +16,13 @@ public class TriviaAPIService {
     this.webClient = webClient;
   }
 
-  public TriviaReport fetchTriviaQuestions(int numberOfTrivia) {
+  public TriviaApiResponseDTO fetchTriviaQuestions(int numberOfTrivia) {
     String url = String.format("https://opentdb.com/api.php?amount=%s&type=multiple", numberOfTrivia);
 
-    TriviaReport triviaReport = webClient.get()
+    TriviaApiResponseDTO triviaReport = webClient.get()
             .uri(url)
             .retrieve()
-            .bodyToMono(TriviaReport.class)
+            .bodyToMono(TriviaApiResponseDTO.class)
             .block();
 
     decodeResponse(triviaReport);
@@ -30,9 +30,9 @@ public class TriviaAPIService {
     return triviaReport;
   }
 
-  private void decodeResponse(TriviaReport triviaReport) { // decode Html characteristics
+  private void decodeResponse(TriviaApiResponseDTO triviaReport) { // decode Html characteristics
     if (triviaReport != null && triviaReport.results() != null) {
-      for (Trivia question : triviaReport.results()) {
+      for (TriviaDTO question : triviaReport.results()) {
 
         question.setQuestion(StringEscapeUtils.unescapeHtml4(question.getQuestion()));
         question.setCorrect_answer(StringEscapeUtils.unescapeHtml4(question.getCorrect_answer()));

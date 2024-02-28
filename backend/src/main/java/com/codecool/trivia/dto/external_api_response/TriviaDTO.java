@@ -1,21 +1,19 @@
-package com.codecool.trivia.model.report;
+package com.codecool.trivia.dto.external_api_response;
 
-public class Trivia {
+public class TriviaDTO {
     private String difficulty;
     private String category;
     private String question;
     private String correct_answer;
     private String[] incorrect_answers;
 
-    public Trivia(String difficulty, String category, String question, String correct_answer, String[] incorrect_answers) {
+    public TriviaDTO(String difficulty, String category, String question, String correct_answer, String[] incorrect_answers) {
         this.difficulty = difficulty;
         this.category = category;
         this.question = question;
         this.correct_answer = correct_answer;
         this.incorrect_answers = incorrect_answers;
     }
-
-    // Getterek és setterek
 
     public String getDifficulty() {
         return difficulty;

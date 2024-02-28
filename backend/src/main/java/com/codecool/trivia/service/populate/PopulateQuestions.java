@@ -4,8 +4,8 @@ import com.codecool.trivia.model.entity.Answer;
 import com.codecool.trivia.model.entity.Category;
 import com.codecool.trivia.model.entity.Difficulty;
 import com.codecool.trivia.model.entity.Question;
-import com.codecool.trivia.model.report.Trivia;
-import com.codecool.trivia.model.report.TriviaReport;
+import com.codecool.trivia.dto.external_api_response.TriviaDTO;
+import com.codecool.trivia.dto.external_api_response.TriviaApiResponseDTO;
 import com.codecool.trivia.repository.AnswerRepository;
 import com.codecool.trivia.repository.CategoryRepository;
 import com.codecool.trivia.repository.DifficultyRepository;
@@ -35,14 +35,14 @@ public class PopulateQuestions {
   }
 
   public void fillDatabaseWithQuestions(int numberOfQuestions) {
-    TriviaReport questions = triviaAPIService.fetchTriviaQuestions(numberOfQuestions);
+    TriviaApiResponseDTO questions = triviaAPIService.fetchTriviaQuestions(numberOfQuestions);
 
-    for (Trivia question : questions.results()) {
+    for (TriviaDTO question : questions.results()) {
       saveQuestion(question);
     }
   }
 
-  private void saveQuestion(Trivia question) {
+  private void saveQuestion(TriviaDTO question) {
     Question newQuestion = new Question();
 
 

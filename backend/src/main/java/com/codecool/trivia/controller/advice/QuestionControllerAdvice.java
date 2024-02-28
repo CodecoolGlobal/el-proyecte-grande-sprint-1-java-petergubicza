@@ -1,5 +1,6 @@
-package com.codecool.trivia.exception;
+package com.codecool.trivia.controller.advice;
 
+import com.codecool.trivia.exception.NotFoundQuestionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
