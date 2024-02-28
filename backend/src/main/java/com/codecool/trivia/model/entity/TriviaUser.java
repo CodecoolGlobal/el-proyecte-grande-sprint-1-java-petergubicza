@@ -2,6 +2,7 @@ package com.codecool.trivia.model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -25,6 +26,7 @@ public class TriviaUser {
     this.name = name;
     this.password = password;
     this.points = 0;
+    this.roles = new HashSet<>();
   }
 
   public boolean addRole(Role role) {
