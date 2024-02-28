@@ -22,13 +22,11 @@ public class WebSecurityConfig {
   private final UserDetailsService userDetailsService;
   private final AuthEntryPointJwt unauthorizedHandler;
   private final JwtUtils jwtUtils;
-  private final Logger logger;
 
-  public WebSecurityConfig(UserDetailsService userDetailsService, AuthEntryPointJwt unauthorizedHandler, JwtUtils jwtUtils, Logger logger) {
+  public WebSecurityConfig(UserDetailsService userDetailsService, AuthEntryPointJwt unauthorizedHandler, JwtUtils jwtUtils) {
     this.userDetailsService = userDetailsService;
     this.unauthorizedHandler = unauthorizedHandler;
     this.jwtUtils = jwtUtils;
-    this.logger = logger;
   }
 
   @Bean
@@ -70,7 +68,7 @@ public class WebSecurityConfig {
   }
 
   public AuthenticationTokenFilter authenticationJwtTokenFilter () {
-    return new AuthenticationTokenFilter(userDetailsService, logger, jwtUtils);
+    return new AuthenticationTokenFilter(userDetailsService, jwtUtils);
   }
 
 

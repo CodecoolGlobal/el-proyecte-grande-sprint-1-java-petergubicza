@@ -1,5 +1,6 @@
 package com.codecool.trivia.security.jwt;
 
+import com.codecool.trivia.logger.ConsoleLogger;
 import com.codecool.trivia.logger.Logger;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -14,11 +15,7 @@ import java.util.Date;
 
 @Component
 public class JwtUtils {
-  private final Logger logger;
-
-  public JwtUtils(Logger logger) {
-    this.logger = logger;
-  }
+  private static final Logger logger = new ConsoleLogger();
 
   @Value("${codecool.app.jwtSecret}")
   private String jwtSecret;

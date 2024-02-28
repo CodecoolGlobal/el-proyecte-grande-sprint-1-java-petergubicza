@@ -1,5 +1,6 @@
 package com.codecool.trivia.security.jwt;
 
+import com.codecool.trivia.logger.ConsoleLogger;
 import com.codecool.trivia.logger.Logger;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,12 +18,11 @@ import java.io.IOException;
 
 public class AuthenticationTokenFilter extends OncePerRequestFilter {
   private final UserDetailsService userDetailsService;
-  private final Logger logger;
+  private static final Logger logger = new ConsoleLogger();
   private final JwtUtils jwtUtils;
 
-  public AuthenticationTokenFilter(UserDetailsService userDetailsService, Logger logger, JwtUtils jwtUtils) {
+  public AuthenticationTokenFilter(UserDetailsService userDetailsService, JwtUtils jwtUtils) {
     this.userDetailsService = userDetailsService;
-    this.logger = logger;
     this.jwtUtils = jwtUtils;
   }
 

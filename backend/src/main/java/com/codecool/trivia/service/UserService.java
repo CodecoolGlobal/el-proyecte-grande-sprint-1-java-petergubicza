@@ -28,14 +28,13 @@ import java.util.Set;
 @Service
 public class UserService {
   private final UserRepository userRepository;
-  private final ConsoleLogger logger;
+  private static final ConsoleLogger logger = new ConsoleLogger();
   private final AuthenticationManager authenticationManager;
   private final JwtUtils jwtUtils;
   private final PasswordEncoder encoder;
 
-  public UserService(UserRepository userRepository, ConsoleLogger logger, AuthenticationManager authenticationManager, JwtUtils jwtUtils, PasswordEncoder encoder) {
+  public UserService(UserRepository userRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils, PasswordEncoder encoder) {
     this.userRepository = userRepository;
-    this.logger = logger;
     this.authenticationManager = authenticationManager;
     this.jwtUtils = jwtUtils;
     this.encoder = encoder;
