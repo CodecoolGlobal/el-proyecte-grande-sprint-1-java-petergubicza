@@ -33,7 +33,7 @@ public class AnswerCheckService {
       return ResponseEntity.ok().body(new CorrectAnswerDTO(correctAnswer.getId()));
 
     } catch (Exception e) {
-      return ResponseEntity.badRequest().body("Coudn't find correct answer");
+      return ResponseEntity.badRequest().body("Couldn't find correct answer");
     }
   }
 }
