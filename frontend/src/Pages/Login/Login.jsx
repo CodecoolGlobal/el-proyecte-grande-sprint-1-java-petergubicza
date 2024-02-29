@@ -8,16 +8,16 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  async function signIn() {
+  async function login() {
     const body = {
       name,
       password,
     };
 
-    const response = await postData(`/api/user/signin`, body);
+    const response = await postData(`/api/user/login`, body);
     
     if (response.jwt) {
-      console.log("ok");
+      localStorage.setItem("jwt", response.jwt);
       navigate("/home");
     }
   }
@@ -51,9 +51,9 @@ export default function Login() {
             className="button"
             type="button"
             disabled={false}
-            onClick={signIn}
+            onClick={login}
           >
-            Sign in
+            Login
           </button>
         </div>
         <div>
