@@ -4,7 +4,6 @@ import com.codecool.trivia.dto.frontend_request.quiz.AnswerDTO;
 import com.codecool.trivia.dto.frontend_request.quiz.QuestionDTO;
 import com.codecool.trivia.exception.NotFoundQuestionException;
 import com.codecool.trivia.model.entity.Question;
-import com.codecool.trivia.service.game.RandomQuestionGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +23,7 @@ public class RandomQuestionService {
         try {
             List<AnswerDTO> answers = this.randomQuestionGenerator.getAnswersForCertainQuestion(randomQuestion);
             return new QuestionDTO(
+                    randomQuestion.getId(),
                     randomQuestion.getQuestionDescription(),
                     answers
             );
