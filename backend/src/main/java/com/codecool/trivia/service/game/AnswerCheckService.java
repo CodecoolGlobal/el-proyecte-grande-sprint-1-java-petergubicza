@@ -1,6 +1,6 @@
 package com.codecool.trivia.service.game;
 
-import com.codecool.trivia.dto.frontend_request.AnswerCheckDTO;
+import com.codecool.trivia.dto.frontend_request.quiz.AnswerCheckDTO;
 import com.codecool.trivia.model.entity.Answer;
 import com.codecool.trivia.repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

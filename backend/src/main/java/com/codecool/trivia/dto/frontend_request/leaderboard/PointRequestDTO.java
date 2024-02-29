@@ -1,4 +1,4 @@
-package com.codecool.trivia.dto.frontend_request;
+package com.codecool.trivia.dto.frontend_request.leaderboard;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

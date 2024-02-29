@@ -1,17 +1,15 @@
 package com.codecool.trivia.service;
 
-import com.codecool.trivia.dto.frontend_request.UserStatDTO;
+import com.codecool.trivia.dto.frontend_request.user.*;
 import com.codecool.trivia.dto.payload.JwtResponse;
 import com.codecool.trivia.model.entity.Role;
 import com.codecool.trivia.model.enums.RoleName;
-import com.codecool.trivia.dto.frontend_request.PointRequestDTO;
-import com.codecool.trivia.dto.frontend_request.UserRequestDTO;
+import com.codecool.trivia.dto.frontend_request.leaderboard.PointRequestDTO;
 import com.codecool.trivia.logger.ConsoleLogger;
 import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
 import com.codecool.trivia.security.jwt.JwtUtils;
 import jakarta.transaction.Transactional;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +23,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.LoginException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +44,7 @@ public class UserService {
   }
 
   @Transactional
-  public ResponseEntity<?> createUser(UserRequestDTO userRequest) {
+  public ResponseEntity<?> createUser(UserNamePasswordDTO userRequest) {
     try {
       String hashedPassword = encoder.encode(userRequest.password());
 
@@ -59,7 +56,7 @@ public class UserService {
       newUser.addRole(new Role(RoleName.ROLE_USER));
 
       userRepository.save(newUser);
-      return ResponseEntity.ok("Created user: " + newUser.getName());
+      return ResponseEntity.ok(new UserNameDTO(newUser.getName()));
 
     } catch (Exception e) {
       logger.logError("Couldn't create user: " + e.getMessage());
@@ -86,17 +83,17 @@ public class UserService {
   }
 
   @Transactional
-  public ResponseEntity<?> addRoleFor(TriviaUser triviaUser, Role role) {
+  public ResponseEntity<?> addRoleFor(NewRoleDTO newRoleForUser) {
     try {
-      TriviaUser triviaUser1 = userRepository.findTriviaUserByName(triviaUser.getName()).get();
-      Set<Role> oldRoles = triviaUser1.getRoles();
+      TriviaUser triviaUser = userRepository.findTriviaUserByName(newRoleForUser.name()).get();
+      Set<Role> oldRoles = triviaUser.getRoles();
 
       Set<Role> copiedRoles = new HashSet<>(oldRoles);
-      copiedRoles.add(role);
-      triviaUser1.setRoles(copiedRoles);
+      copiedRoles.add(new Role(RoleName.valueOf(newRoleForUser.newRole())));
+      triviaUser.setRoles(copiedRoles);
 
-      userRepository.save(triviaUser1);
-      return ResponseEntity.ok(triviaUser1.getName() + " has roles: " + triviaUser1.getRoles());
+      userRepository.save(triviaUser);
+      return ResponseEntity.ok(new UserRolesDTO(triviaUser.getName(), triviaUser.getRoles()));
 
     } catch (UsernameNotFoundException e) {
       logger.logError(e.getMessage());
@@ -105,7 +102,7 @@ public class UserService {
   }
 
   @Transactional
-  public ResponseEntity<?> login(UserRequestDTO userRequest) {
+  public ResponseEntity<?> login(UserNamePasswordDTO userRequest) {
 
     try {
       Authentication authentication = authenticationManager.authenticate(

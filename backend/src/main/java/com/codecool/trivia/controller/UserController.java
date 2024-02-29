@@ -1,10 +1,10 @@
 package com.codecool.trivia.controller;
 
-import com.codecool.trivia.dto.frontend_request.UserStatDTO;
-import com.codecool.trivia.dto.frontend_request.PointRequestDTO;
-import com.codecool.trivia.dto.frontend_request.UserRequestDTO;
+import com.codecool.trivia.dto.frontend_request.leaderboard.PointRequestDTO;
+import com.codecool.trivia.dto.frontend_request.user.NewRoleDTO;
+import com.codecool.trivia.dto.frontend_request.user.UserNamePasswordDTO;
+import com.codecool.trivia.dto.frontend_request.user.UserRolesDTO;
 import com.codecool.trivia.service.UserService;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,12 +23,12 @@ public class UserController {
   }
 
   @PostMapping(value = "/register")
-  public ResponseEntity<?> addUser(@RequestBody UserRequestDTO userRequest) {
+  public ResponseEntity<?> addUser(@RequestBody UserNamePasswordDTO userRequest) {
     return userService.createUser(userRequest);
   }
 
   @PostMapping(value = "/login")
-  public ResponseEntity<?> loginUser(@RequestBody UserRequestDTO userRequest) {
+  public ResponseEntity<?> loginUser(@RequestBody UserNamePasswordDTO userRequest) {
     return userService.login(userRequest);
   }
 
@@ -42,5 +42,11 @@ public class UserController {
   @PreAuthorize("hasRole('ROLE_USER')")
   public ResponseEntity<?> getUserStats(@RequestHeader ("Authorization") String authorization) {
     return userService.getUserStats(authorization);
+  }
+
+  @PatchMapping(value = "/addrole")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  public ResponseEntity<?> addRoleForUser(@RequestBody NewRoleDTO newRoleForUser) {
+    return userService.addRoleFor(newRoleForUser);
   }
 }
