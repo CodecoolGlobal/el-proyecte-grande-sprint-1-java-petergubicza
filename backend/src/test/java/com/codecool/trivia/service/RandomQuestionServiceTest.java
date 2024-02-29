@@ -34,7 +34,7 @@ class RandomQuestionServiceTest {
         AnswerDTO testAnswerDto = new AnswerDTO(UUID.randomUUID(), "asd");
         when(randomQuestionGenerator.getRandomQuestion()).thenReturn(testQuestion);
         when(randomQuestionGenerator.getAnswersForCertainQuestion(testQuestion)).thenReturn(List.of(testAnswerDto));
-        QuestionDTO expected = new QuestionDTO("asd", List.of(testAnswerDto));
+        QuestionDTO expected = new QuestionDTO("asd", List.of(testAnswerDto), UUID.randomUUID());
 
         //ACT
         QuestionDTO actual = this.randomQuestionService.getRandomQuestionDTO();

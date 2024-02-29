@@ -19,7 +19,7 @@ export default function Answers({ quest }) {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
         },
       })
         .then((response) => response.json())
@@ -27,12 +27,29 @@ export default function Answers({ quest }) {
           setCorrectAnswerId(data.correctAnswerId);
           if (selectedAnswerId !== data.correctAnswerId) {
             document.getElementById(selectedAnswerId).style.backgroundColor = "red";
-          }
+          } else if (selectedAnswerId === data.correctAnswerId) {
+            givePointsToUser(quest.id);
+          };
         })
         .catch((error) =>
           console.error("Error fetching correct answer:", error)
         );
+
     }
+  }
+
+  function givePointsToUser(questionId) {
+    fetch(`/api/user/addpoints`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("jwt")}`
+      },
+      body: JSON.stringify({
+        name: localStorage.getItem("name"),
+        questionId: questionId
+      })
+    });
   }
 
   return (
@@ -46,8 +63,8 @@ export default function Answers({ quest }) {
               answer.id === selectedAnswerId
                 ? "lightblue"
                 : answer.id === correctAnswerId
-                ? "lightgreen"
-                : "transparent",
+                  ? "lightgreen"
+                  : "transparent",
             cursor: "pointer",
           }}
         >
