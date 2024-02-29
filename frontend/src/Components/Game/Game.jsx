@@ -1,18 +1,21 @@
 /* eslint-disable react/prop-types */
 import { useCallback, useEffect, useState } from "react";
-import { fetchData } from "../../fetch";
 import Question from "./Questions";
 import Answers from "./Answers";
-import Result from "./Result";
 import "./Game.css";
 
 export default function Game({ onClose }) {
   const [quizQuest, setQuizQuest] = useState(null);
-  const [showResult, setShowResult] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   const getNewQuestion = useCallback((locked = () => false) => {
-    fetchData("/api/trivia/randomQuestion")
+    fetch(`/api/question/random_question`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    })
+      .then((response) => response.json())
       .then((data) => {
         if (locked() === true) {
           return;
@@ -35,37 +38,24 @@ export default function Game({ onClose }) {
   }, [getNewQuestion]);
 
   const handleNextQuestion = useCallback(() => {
-    setShowResult(false);
     getNewQuestion();
   }, [getNewQuestion]);
-
-  const handleAnswerSelection = (answer) => {
-    setSelectedAnswer(answer);
-    setShowResult(true);
-  };
 
   return (
     <div className="game">
       {quizQuest === null ? (
         <div>Loading...</div>
       ) : (
-        <>
-          {showResult ? (
-            <Result
-              selectedAnswer={selectedAnswer}
-              onClose={onClose}
-              onNext={handleNextQuestion}
-            />
-          ) : (
-            <div>
-              <Question question={quizQuest.questionDescription} />
-              <Answers
-                answers={quizQuest.answers}
-                onSelectAnswer={(answer) => handleAnswerSelection(answer)}
-              />
-            </div>
-          )}
-        </>
+        <div className="quiz">
+          <Question question={quizQuest.questionDescription} />
+          <Answers quest={quizQuest} />
+          <button className="button" onClick={onClose}>
+            Close
+          </button>
+          <button className="button" onClick={handleNextQuestion}>
+            Next
+          </button>
+        </div>
       )}
     </div>
   );

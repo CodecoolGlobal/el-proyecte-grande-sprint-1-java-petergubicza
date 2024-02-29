@@ -7,7 +7,7 @@ export default function User({ triviaUser }) {
     triviaUser?.image ||
     "https://play-lh.googleusercontent.com/bmGXUIx8ZiRgPSJI5eMOaUEafXVXiFiUJVx1siq1vVm1u-bbn4brIaYRehelsfy594c=w240-h480-rw";
 
-  if (!triviaUser) {
+  if (!triviaUser) { 
     return <div>Loading...</div>;
   }
 
