@@ -1,10 +1,9 @@
 package com.codecool.trivia.controller;
 
-import com.codecool.trivia.dto.frontend_request.UserStatDTO;
-import com.codecool.trivia.dto.frontend_request.PointRequestDTO;
-import com.codecool.trivia.dto.frontend_request.UserRequestDTO;
-import com.codecool.trivia.service.UserService;
-import org.apache.tomcat.util.http.parser.Authorization;
+import com.codecool.trivia.dto.frontend_request.leaderboard.PointRequestDTO;
+import com.codecool.trivia.dto.frontend_request.user.NewRoleDTO;
+import com.codecool.trivia.dto.frontend_request.user.UserNamePasswordDTO;
+import com.codecool.trivia.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,32 +22,30 @@ public class UserController {
   }
 
   @PostMapping(value = "/register")
-  public ResponseEntity<String> addUser(@RequestBody UserRequestDTO userRequest) {
-    if (userService.createUser(userRequest)) {
-      return ResponseEntity.ok("User created successfully!");
-    } else {
-      return ResponseEntity.badRequest().body("Couldn't create user!");
-    }
+  public ResponseEntity<?> addUser(@RequestBody UserNamePasswordDTO userRequest) {
+    return userService.createUser(userRequest);
   }
 
   @PostMapping(value = "/login")
-  public ResponseEntity<?> loginUser(@RequestBody UserRequestDTO userRequest) {
+  public ResponseEntity<?> loginUser(@RequestBody UserNamePasswordDTO userRequest) {
     return userService.login(userRequest);
   }
 
   @PatchMapping(value = "/addpoints")
   @PreAuthorize("hasRole('ROLE_USER')")
-  public ResponseEntity<String> addPoints(@RequestBody PointRequestDTO pointRequest) {
-    if (userService.addPointsToUser(pointRequest)) {
-      return ResponseEntity.ok("Points added to user!");
-    } else {
-      return ResponseEntity.badRequest().body("Couldn't add points to user!");
-    }
+  public ResponseEntity<?> addPoints(@RequestBody PointRequestDTO pointRequest) {
+    return userService.addPointsToUser(pointRequest);
   }
 
   @GetMapping(value = "/stats")
   @PreAuthorize("hasRole('ROLE_USER')")
-  public ResponseEntity<UserStatDTO> getUserStats(@RequestHeader ("Authorization") String authorization) {
+  public ResponseEntity<?> getUserStats(@RequestHeader ("Authorization") String authorization) {
     return userService.getUserStats(authorization);
+  }
+
+  @PatchMapping(value = "/addrole")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  public ResponseEntity<?> addRoleForUser(@RequestBody NewRoleDTO newRoleForUser) {
+    return userService.addRoleFor(newRoleForUser);
   }
 }

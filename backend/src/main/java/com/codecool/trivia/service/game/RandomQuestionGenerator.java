@@ -1,6 +1,6 @@
 package com.codecool.trivia.service.game;
 
-import com.codecool.trivia.dto.frontend_request.AnswerDTO;
+import com.codecool.trivia.dto.frontend_request.quiz.AnswerDTO;
 import com.codecool.trivia.exception.NotFoundQuestionException;
 import com.codecool.trivia.model.entity.Answer;
 import com.codecool.trivia.model.entity.Question;

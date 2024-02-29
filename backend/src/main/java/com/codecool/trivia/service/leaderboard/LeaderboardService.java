@@ -1,4 +1,4 @@
-package com.codecool.trivia.service;
+package com.codecool.trivia.service.leaderboard;
 
 import com.codecool.trivia.dto.frontend_request.leaderboard.LeaderboardDTO;
 import com.codecool.trivia.dto.frontend_request.leaderboard.UserScore;

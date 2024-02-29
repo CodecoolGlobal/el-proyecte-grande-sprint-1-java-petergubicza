@@ -1,7 +1,7 @@
 package com.codecool.trivia.controller;
 
 import com.codecool.trivia.dto.frontend_request.leaderboard.LeaderboardDTO;
-import com.codecool.trivia.service.LeaderboardService;
+import com.codecool.trivia.service.leaderboard.LeaderboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;

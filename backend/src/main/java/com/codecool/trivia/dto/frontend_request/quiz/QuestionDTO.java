@@ -1,4 +1,4 @@
-package com.codecool.trivia.dto.frontend_request;
+package com.codecool.trivia.dto.frontend_request.quiz;
 
 import java.util.ArrayList;
 import java.util.List;
