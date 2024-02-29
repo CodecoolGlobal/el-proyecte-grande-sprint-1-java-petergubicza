@@ -23,12 +23,8 @@ public class UserController {
   }
 
   @PostMapping(value = "/register")
-  public ResponseEntity<String> addUser(@RequestBody UserRequestDTO userRequest) {
-    if (userService.createUser(userRequest)) {
-      return ResponseEntity.ok("User created successfully!");
-    } else {
-      return ResponseEntity.badRequest().body("Couldn't create user!");
-    }
+  public ResponseEntity<?> addUser(@RequestBody UserRequestDTO userRequest) {
+    return userService.createUser(userRequest);
   }
 
   @PostMapping(value = "/login")
@@ -38,17 +34,13 @@ public class UserController {
 
   @PatchMapping(value = "/addpoints")
   @PreAuthorize("hasRole('ROLE_USER')")
-  public ResponseEntity<String> addPoints(@RequestBody PointRequestDTO pointRequest) {
-    if (userService.addPointsToUser(pointRequest)) {
-      return ResponseEntity.ok("Points added to user!");
-    } else {
-      return ResponseEntity.badRequest().body("Couldn't add points to user!");
-    }
+  public ResponseEntity<?> addPoints(@RequestBody PointRequestDTO pointRequest) {
+    return userService.addPointsToUser(pointRequest);
   }
 
   @GetMapping(value = "/stats")
   @PreAuthorize("hasRole('ROLE_USER')")
-  public ResponseEntity<UserStatDTO> getUserStats(@RequestHeader ("Authorization") String authorization) {
+  public ResponseEntity<?> getUserStats(@RequestHeader ("Authorization") String authorization) {
     return userService.getUserStats(authorization);
   }
 }
