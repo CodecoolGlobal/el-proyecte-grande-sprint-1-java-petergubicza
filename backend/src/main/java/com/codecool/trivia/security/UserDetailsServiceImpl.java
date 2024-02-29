@@ -1,4 +1,4 @@
-package com.codecool.trivia.service;
+package com.codecool.trivia.security;
 
 import com.codecool.trivia.model.entity.Role;
 import com.codecool.trivia.model.entity.TriviaUser;

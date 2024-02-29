@@ -4,6 +4,7 @@ import com.codecool.trivia.dto.frontend_request.quiz.AnswerDTO;
 import com.codecool.trivia.dto.frontend_request.quiz.QuestionDTO;
 import com.codecool.trivia.model.entity.Question;
 import com.codecool.trivia.service.game.RandomQuestionGenerator;
+import com.codecool.trivia.service.game.RandomQuestionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

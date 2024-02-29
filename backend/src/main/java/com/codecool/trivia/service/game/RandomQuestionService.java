@@ -1,4 +1,4 @@
-package com.codecool.trivia.service;
+package com.codecool.trivia.service.game;
 
 import com.codecool.trivia.dto.frontend_request.quiz.AnswerDTO;
 import com.codecool.trivia.dto.frontend_request.quiz.QuestionDTO;

@@ -1,4 +1,4 @@
-package com.codecool.trivia.service;
+package com.codecool.trivia.service.user;
 
 import com.codecool.trivia.dto.frontend_request.user.*;
 import com.codecool.trivia.dto.payload.JwtResponse;
