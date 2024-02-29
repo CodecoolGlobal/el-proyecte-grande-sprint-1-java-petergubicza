@@ -1,5 +1,6 @@
 package com.codecool.trivia.service;
 
+import com.codecool.trivia.dto.frontend_request.UserStatDTO;
 import com.codecool.trivia.dto.payload.JwtResponse;
 import com.codecool.trivia.model.entity.Role;
 import com.codecool.trivia.model.enums.RoleName;
@@ -10,6 +11,7 @@ import com.codecool.trivia.model.entity.TriviaUser;
 import com.codecool.trivia.repository.UserRepository;
 import com.codecool.trivia.security.jwt.JwtUtils;
 import jakarta.transaction.Transactional;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,90 +30,107 @@ import java.util.Set;
 
 @Service
 public class UserService {
-  private final UserRepository userRepository;
-  private static final ConsoleLogger logger = new ConsoleLogger();
-  private final AuthenticationManager authenticationManager;
-  private final JwtUtils jwtUtils;
-  private final PasswordEncoder encoder;
+    private final UserRepository userRepository;
+    private static final ConsoleLogger logger = new ConsoleLogger();
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtils;
+    private final PasswordEncoder encoder;
 
-  @Autowired
-  public UserService(UserRepository userRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils, PasswordEncoder encoder) {
-    this.userRepository = userRepository;
-    this.authenticationManager = authenticationManager;
-    this.jwtUtils = jwtUtils;
-    this.encoder = encoder;
-  }
-
-  @Transactional
-  public boolean createUser(UserRequestDTO userRequest) {
-    try {
-      String hashedPassword = encoder.encode(userRequest.password());
-
-      TriviaUser newUser = new TriviaUser(
-              userRequest.name(),
-              hashedPassword
-      );
-
-      newUser.addRole(new Role(RoleName.ROLE_GUEST));
-
-      userRepository.save(newUser);
-      return true;
-
-    } catch (Exception e) {
-      logger.logError(e.toString());
-      return false;
+    @Autowired
+    public UserService(UserRepository userRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils, PasswordEncoder encoder) {
+        this.userRepository = userRepository;
+        this.authenticationManager = authenticationManager;
+        this.jwtUtils = jwtUtils;
+        this.encoder = encoder;
     }
-  }
 
-  public boolean addPointsToUser(PointRequestDTO pointRequest) {
-    try {
-      TriviaUser triviaUser = userRepository.findTriviaUserByName(pointRequest.name()).get();
+    @Transactional
+    public boolean createUser(UserRequestDTO userRequest) {
+        try {
+            String hashedPassword = encoder.encode(userRequest.password());
 
-      int userPoints = triviaUser.getPoints();
-      int updatedPoints = userPoints + pointRequest.extraPoints();
+            TriviaUser newUser = new TriviaUser(
+                    userRequest.name(),
+                    hashedPassword
+            );
 
-      triviaUser.setPoints(updatedPoints);
-      userRepository.save(triviaUser);
-      return true;
+            newUser.addRole(new Role(RoleName.ROLE_USER));
 
-    } catch (UsernameNotFoundException e) {
-      logger.logError(e.toString());
-      return false;
+            userRepository.save(newUser);
+            return true;
+
+        } catch (Exception e) {
+            logger.logError(e.toString());
+            return false;
+        }
     }
-  }
 
-  @Transactional
-  public void addRoleFor(TriviaUser triviaUser, Role role) {
-    try {
-      TriviaUser triviaUser1 = userRepository.findTriviaUserByName(triviaUser.getName()).get();
-      Set<Role> oldRoles = triviaUser1.getRoles();
+    public boolean addPointsToUser(PointRequestDTO pointRequest) {
+        try {
+            TriviaUser triviaUser = userRepository.findTriviaUserByName(pointRequest.name()).get();
 
-      Set<Role> copiedRoles = new HashSet<>(oldRoles);
-      copiedRoles.add(role);
+            int userPoints = triviaUser.getPoints();
+            int updatedPoints = userPoints + pointRequest.extraPoints();
 
-      userRepository.save(triviaUser1);
-    } catch (UsernameNotFoundException e) {
-      logger.logError(e.getMessage());
+            triviaUser.setPoints(updatedPoints);
+            userRepository.save(triviaUser);
+            return true;
+
+        } catch (UsernameNotFoundException e) {
+            logger.logError(e.toString());
+            return false;
+        }
     }
-  }
 
-  @Transactional
-  public ResponseEntity<?> login(UserRequestDTO userRequest) {
-    Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(userRequest.name(), userRequest.password()));
+    @Transactional
+    public void addRoleFor(TriviaUser triviaUser, Role role) {
+        try {
+            TriviaUser triviaUser1 = userRepository.findTriviaUserByName(triviaUser.getName()).get();
+            Set<Role> oldRoles = triviaUser1.getRoles();
 
-    SecurityContextHolder.getContext().setAuthentication(authentication);
+            Set<Role> copiedRoles = new HashSet<>(oldRoles);
+            copiedRoles.add(role);
 
-    String jwt = jwtUtils.generateJwtToken(authentication);
+            userRepository.save(triviaUser1);
+        } catch (UsernameNotFoundException e) {
+            logger.logError(e.getMessage());
+        }
+    }
 
-    User userDetails = (User) authentication.getPrincipal();
+    @Transactional
+    public ResponseEntity<?> login(UserRequestDTO userRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(userRequest.name(), userRequest.password()));
 
-    List<String> roles = userDetails
-            .getAuthorities()
-            .stream()
-            .map(GrantedAuthority::getAuthority)
-            .toList();
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), roles));
-  }
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        User userDetails = (User) authentication.getPrincipal();
+
+        List<String> roles = userDetails
+                .getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList();
+
+        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), roles));
+    }
+
+    public ResponseEntity<UserStatDTO> getUserStats(String authorization) {
+        String jwt = authorization.substring(7);
+        String userName = jwtUtils.getUserNameFromJwtToken(jwt);
+        UserStatDTO userStatDTO = null;
+        try {
+            TriviaUser triviaUser = userRepository.findTriviaUserByName(userName).get();
+            userStatDTO =
+                    new UserStatDTO(
+                            triviaUser.getName(),
+                            triviaUser.getPoints(),
+                            null);
+        } catch (Exception e) {
+            logger.logError("User not found" + e.getMessage());
+        }
+        return ResponseEntity.ok(userStatDTO);
+    }
 }

@@ -1,17 +1,23 @@
-import './LeaderBoard.css';
-import { fetchData } from '../../fetch';
-import { useState, useEffect } from 'react';
+import "./LeaderBoard.css";
+import { useState, useEffect } from "react";
 
 export default function LeaderBoard() {
   const [championsWithPoints, setChampionsWithPoints] = useState([]);
 
   useEffect(() => {
-    fetchData('/api/leaderboard/leaderboard')
-      .then(res => {
-        setChampionsWithPoints(res.userScores);
+    fetch(`/api/leaderboard/leaderboard`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setChampionsWithPoints(data.userScores);
       })
-      .catch(error => {
-        console.error('Error fetching leaderboard', error);
+      .catch((error) => {
+        console.error("Error fetching leaderboard", error);
       });
   }, []);
 
@@ -20,7 +26,7 @@ export default function LeaderBoard() {
       <h1 id="header">Top 5 players:</h1>
       <ol>
         {championsWithPoints.map((champion) => {
-          return <li key={champion} className='playerList'>{champion.name + " - " + champion.points}</li>
+          return <li key={champion.name} className='playerList'>{champion.name + " - " + champion.points}</li>
         })}
       </ol>
     </div>
