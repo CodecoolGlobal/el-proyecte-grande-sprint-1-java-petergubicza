@@ -6,6 +6,7 @@ import "./Game.css";
 
 export default function Game({ onClose }) {
   const [quizQuest, setQuizQuest] = useState(null);
+  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
 
   const getNewQuestion = useCallback((locked = () => false) => {
     fetch(`/api/question/random_question`, {
@@ -21,6 +22,7 @@ export default function Game({ onClose }) {
           return;
         }
         setQuizQuest(data);
+        setIsAnswerSubmitted(false);
       })
       .catch((error) => {
         console.error("Error loading question:", error);
@@ -41,6 +43,11 @@ export default function Game({ onClose }) {
     getNewQuestion();
   }, [getNewQuestion]);
 
+  const enableNextButton = () => {
+    setIsAnswerSubmitted(true);
+  }
+  
+
   return (
     <div className="game">
       {quizQuest === null ? (
@@ -48,11 +55,11 @@ export default function Game({ onClose }) {
       ) : (
         <div className="quiz">
           <Question question={quizQuest.questionDescription} />
-          <Answers quest={quizQuest} />
+          <Answers quest={quizQuest} isSubmitted={enableNextButton} />
           <button className="button" onClick={onClose}>
             Close
           </button>
-          <button className="button" onClick={handleNextQuestion}>
+          <button className="button" onClick={handleNextQuestion} disabled={!isAnswerSubmitted}>
             Next
           </button>
         </div>

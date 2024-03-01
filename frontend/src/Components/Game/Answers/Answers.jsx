@@ -1,19 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 /* eslint-disable react/prop-types */
-export default function Answers({ quest }) {
+export default function Answers({ quest, isSubmitted }) {
   const [selectedAnswerId, setSelectedAnswerId] = useState(null);
   const [correctAnswerId, setCorrectAnswerId] = useState(null);
+  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false); // Új állapot bevezetése
+
+  useEffect(() => {
+    // Reseteljük a kiválasztott és helyes válasz ID-kat, ha új kérdés érkezik
+    setSelectedAnswerId(null);
+    setCorrectAnswerId(null);
+    setIsAnswerSubmitted(false); // Új kérdés érkezésekor reseteljük az isAnswerSubmitted állapotot is
+  }, [quest]);
 
   const handleAnswerClick = (id) => {
-    if (selectedAnswerId === id) {
-      setSelectedAnswerId(null);
-    } else {
+    if (!isAnswerSubmitted) { // Csak akkor engedélyezzük a kattintást, ha még nem lett beküldve a válasz
       setSelectedAnswerId(id);
     }
   };
 
-  function handleSelectClick() {
+  function handleSubmitClick() {
     if (selectedAnswerId !== null) {
       fetch(`/api/question/correct_answer?questionId=${quest.id}`, {
         method: "GET",
@@ -26,8 +32,14 @@ export default function Answers({ quest }) {
         .then((data) => {
           setCorrectAnswerId(data.correctAnswerId);
           if (selectedAnswerId !== data.correctAnswerId) {
-            document.getElementById(selectedAnswerId).style.backgroundColor = "red";
+            document.getElementById(selectedAnswerId).style.backgroundColor =
+              "red";
+          } else if (selectedAnswerId === data.correctAnswerId) {
+            document.getElementById(selectedAnswerId).style.backgroundColor =
+              "lightgreen";
           }
+          isSubmitted();
+          setIsAnswerSubmitted(true); // Beküldés után beállítjuk az isAnswerSubmitted állapotot true-ra
         })
         .catch((error) =>
           console.error("Error fetching correct answer:", error)
@@ -39,6 +51,7 @@ export default function Answers({ quest }) {
     <div className="answers">
       {quest.answers.map((answer) => (
         <div
+          id={answer.id}
           key={answer.id}
           onClick={() => handleAnswerClick(answer.id)}
           style={{
@@ -48,7 +61,7 @@ export default function Answers({ quest }) {
                 : answer.id === correctAnswerId
                 ? "lightgreen"
                 : "transparent",
-            cursor: "pointer",
+            cursor: isAnswerSubmitted ? "not-allowed" : "pointer",
           }}
         >
           {answer.description}
@@ -56,10 +69,10 @@ export default function Answers({ quest }) {
       ))}
       <button
         className="button"
-        onClick={handleSelectClick}
-        disabled={selectedAnswerId === null}
+        onClick={handleSubmitClick}
+        disabled={selectedAnswerId === null || isAnswerSubmitted}
       >
-        Select
+        Submit
       </button>
     </div>
   );
