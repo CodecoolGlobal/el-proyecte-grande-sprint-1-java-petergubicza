@@ -9,42 +9,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Component
 public class RandomQuestionGenerator {
-    private final QuestionRepository questionRepository;
+  private final QuestionRepository questionRepository;
 
-    @Autowired
-    public RandomQuestionGenerator(QuestionRepository questionRepository) {
-        this.questionRepository = questionRepository;
+  @Autowired
+  public RandomQuestionGenerator(QuestionRepository questionRepository) {
+    this.questionRepository = questionRepository;
+  }
+
+  public Question getRandomQuestion() {
+    Optional<Question> randomQuestion = this.questionRepository.findRandomQuestion();
+    if (randomQuestion.isPresent()) {
+      return randomQuestion.get();
+    } else {
+      throw new NotFoundQuestionException();
     }
+  }
 
-    public Question getRandomQuestion() {
-        Optional<Question> randomQuestion = this.questionRepository.findRandomQuestion();
-        if (randomQuestion.isPresent()) {
-            return randomQuestion.get();
-        } else {
-            throw new NotFoundQuestionException();
-        }
+  public List<AnswerDTO> getAnswersForCertainQuestion(Question question) {
+    Optional<Question> optionalQuestion = this.questionRepository.findById(question.getId());
+    if (optionalQuestion.isEmpty()) {
+      throw new NotFoundQuestionException(question.getQuestionDescription());
+    } else {
+      List<Answer> answersForQuestion = optionalQuestion.get().getIncorrect_answers();
+      answersForQuestion.add(optionalQuestion.get().getCorrectAnswer());
+
+      List<AnswerDTO> answerDTOS = new ArrayList<>();
+
+      for (Answer answer : answersForQuestion) {
+        answerDTOS.add(new AnswerDTO(answer.getId(), answer.getDescription()));
+      }
+
+      Collections.shuffle(answerDTOS);
+
+      return answerDTOS;
     }
-
-    public List<AnswerDTO> getAnswersForCertainQuestion(Question question) {
-        Optional<Question> optionalQuestion = this.questionRepository.findById(question.getId());
-        if (optionalQuestion.isEmpty()) {
-            throw new NotFoundQuestionException(question.getQuestionDescription());
-        } else {
-            List<Answer> answersForQuestion = optionalQuestion.get().getIncorrect_answers();
-            answersForQuestion.add(optionalQuestion.get().getCorrectAnswer());
-
-            List<AnswerDTO> answerDTOS = new ArrayList<>();
-
-            for (Answer answer : answersForQuestion) {
-                answerDTOS.add(new AnswerDTO(answer.getId(), answer.getDescription()));
-            }
-
-            return answerDTOS;
-        }
-    }
+  }
 }

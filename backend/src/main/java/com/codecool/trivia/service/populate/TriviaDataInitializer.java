@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TriviaDataInitializer implements ApplicationRunner {
-  private static final int NUM_OF_QUESTIONS = 10;
+  private static final int NUM_OF_QUESTIONS = 50;
   private final PopulateQuestions populateQuestions;
 
   @Autowired
