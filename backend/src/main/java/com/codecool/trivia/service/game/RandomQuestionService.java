@@ -23,6 +23,7 @@ public class RandomQuestionService {
         try {
             List<AnswerDTO> answers = this.randomQuestionGenerator.getAnswersForCertainQuestion(randomQuestion);
             return new QuestionDTO(
+                    randomQuestion.getId(),
                     randomQuestion.getQuestionDescription(),
                     answers,
                     randomQuestion.getId());
