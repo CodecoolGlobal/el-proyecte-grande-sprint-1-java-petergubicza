@@ -25,8 +25,8 @@ public class RandomQuestionService {
             return new QuestionDTO(
                     randomQuestion.getId(),
                     randomQuestion.getQuestionDescription(),
-                    answers
-            );
+                    answers,
+                    randomQuestion.getId());
         } catch (NotFoundQuestionException e) {
             throw new RuntimeException(e.getMessage());
         }

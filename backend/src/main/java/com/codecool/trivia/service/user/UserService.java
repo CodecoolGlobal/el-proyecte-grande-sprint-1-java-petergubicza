@@ -2,11 +2,15 @@ package com.codecool.trivia.service.user;
 
 import com.codecool.trivia.dto.frontend_request.user.*;
 import com.codecool.trivia.dto.payload.JwtResponse;
+import com.codecool.trivia.model.entity.Difficulty;
+import com.codecool.trivia.model.entity.Question;
 import com.codecool.trivia.model.entity.Role;
 import com.codecool.trivia.model.enums.RoleName;
 import com.codecool.trivia.dto.frontend_request.leaderboard.PointRequestDTO;
 import com.codecool.trivia.logger.ConsoleLogger;
 import com.codecool.trivia.model.entity.TriviaUser;
+import com.codecool.trivia.repository.DifficultyRepository;
+import com.codecool.trivia.repository.QuestionRepository;
 import com.codecool.trivia.repository.UserRepository;
 import com.codecool.trivia.security.jwt.JwtUtils;
 import jakarta.transaction.Transactional;
@@ -23,21 +27,28 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService {
   private final UserRepository userRepository;
+  private final DifficultyRepository difficultyRepository;
+  private final QuestionRepository questionRepository;
   private static final ConsoleLogger logger = new ConsoleLogger();
   private final AuthenticationManager authenticationManager;
   private final JwtUtils jwtUtils;
   private final PasswordEncoder encoder;
+  private final static Map<String, Integer> REWARD_TABLE = new HashMap<>() {{
+    put("easy", 1);
+    put("medium", 3);
+    put("hard", 5);
+  }};
 
   @Autowired
-  public UserService(UserRepository userRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils, PasswordEncoder encoder) {
+  public UserService(UserRepository userRepository, DifficultyRepository difficultyRepository, QuestionRepository questionRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils, PasswordEncoder encoder) {
     this.userRepository = userRepository;
+    this.difficultyRepository = difficultyRepository;
+    this.questionRepository = questionRepository;
     this.authenticationManager = authenticationManager;
     this.jwtUtils = jwtUtils;
     this.encoder = encoder;
@@ -67,9 +78,13 @@ public class UserService {
   public ResponseEntity<?> addPointsToUser(PointRequestDTO pointRequest) {
     try {
       TriviaUser triviaUser = userRepository.findTriviaUserByName(pointRequest.name()).get();
-
       int userPoints = triviaUser.getPoints();
-      int updatedPoints = userPoints + pointRequest.extraPoints();
+
+      Question question = questionRepository.findById(pointRequest.questionId()).get();
+      Difficulty difficulty = difficultyRepository.findDifficultyByQuestions(question);
+      int extraPoints = REWARD_TABLE.get(difficulty.getName());
+
+      int updatedPoints = userPoints + extraPoints;
 
       triviaUser.setPoints(updatedPoints);
       userRepository.save(triviaUser);

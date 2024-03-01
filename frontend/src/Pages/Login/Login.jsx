@@ -18,6 +18,7 @@ export default function Login() {
     
     if (response.jwt) {
       localStorage.setItem("jwt", response.jwt);
+      localStorage.setItem("name", response.userName);
       navigate("/home");
     }
   }

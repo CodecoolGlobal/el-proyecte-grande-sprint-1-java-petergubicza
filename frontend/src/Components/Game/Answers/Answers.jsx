@@ -30,12 +30,14 @@ export default function Answers({ quest, isSubmitted }) {
         .then((response) => response.json())
         .then((data) => {
           setCorrectAnswerId(data.correctAnswerId);
+          if (selectedAnswerId === data.correctAnswerId) {
+            document.getElementById(selectedAnswerId).style.backgroundColor =
+              "lightgreen";
+            givePointsToUser(quest.id);
+          }
           if (selectedAnswerId !== data.correctAnswerId) {
             document.getElementById(selectedAnswerId).style.backgroundColor =
               "red";
-          } else if (selectedAnswerId === data.correctAnswerId) {
-            document.getElementById(selectedAnswerId).style.backgroundColor =
-              "lightgreen";
           }
           isSubmitted();
           setIsAnswerSubmitted(true);
@@ -44,6 +46,20 @@ export default function Answers({ quest, isSubmitted }) {
           console.error("Error fetching correct answer:", error)
         );
     }
+  }
+
+  function givePointsToUser(questionId) {
+    fetch(`/api/user/addpoints`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      body: JSON.stringify({
+        name: localStorage.getItem("name"),
+        questionId: questionId,
+      }),
+    });
   }
 
   return (
