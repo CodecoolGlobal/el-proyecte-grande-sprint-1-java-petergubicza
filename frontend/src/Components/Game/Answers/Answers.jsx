@@ -4,17 +4,16 @@ import { useState, useEffect } from "react";
 export default function Answers({ quest, isSubmitted }) {
   const [selectedAnswerId, setSelectedAnswerId] = useState(null);
   const [correctAnswerId, setCorrectAnswerId] = useState(null);
-  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false); // Új állapot bevezetése
+  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
 
   useEffect(() => {
-    // Reseteljük a kiválasztott és helyes válasz ID-kat, ha új kérdés érkezik
     setSelectedAnswerId(null);
     setCorrectAnswerId(null);
-    setIsAnswerSubmitted(false); // Új kérdés érkezésekor reseteljük az isAnswerSubmitted állapotot is
+    setIsAnswerSubmitted(false);
   }, [quest]);
 
   const handleAnswerClick = (id) => {
-    if (!isAnswerSubmitted) { // Csak akkor engedélyezzük a kattintást, ha még nem lett beküldve a válasz
+    if (!isAnswerSubmitted) {
       setSelectedAnswerId(id);
     }
   };
@@ -39,7 +38,7 @@ export default function Answers({ quest, isSubmitted }) {
               "lightgreen";
           }
           isSubmitted();
-          setIsAnswerSubmitted(true); // Beküldés után beállítjuk az isAnswerSubmitted állapotot true-ra
+          setIsAnswerSubmitted(true);
         })
         .catch((error) =>
           console.error("Error fetching correct answer:", error)
