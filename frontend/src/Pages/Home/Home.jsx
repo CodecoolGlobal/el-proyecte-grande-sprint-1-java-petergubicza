@@ -40,10 +40,10 @@ export default function Home() {
         <User triviaUser={userStats} />
       </div>
       <button type="button" className="button" onClick={(e) => handleClose(e)}>
-        Casual
-      </button>
-      <button type="button" className="button" disabled={true}>
         Ranked
+      </button>
+      <button type="button" className="button" disabled={false}>
+        Casual
       </button>
       {popup && (
         <Popup
