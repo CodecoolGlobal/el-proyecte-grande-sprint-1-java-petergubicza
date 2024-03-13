@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import LeaderBoard from "../../Components/LeaderBoard";
+import LeaderBoard from "../../Components/Leaderboard";
 import Game from "../../Components/Game";
 import Popup from "../../Components/Popup/Popup";
 import User from "../../Components/User/User";
@@ -36,20 +36,30 @@ export default function Home() {
       <div className="leaderBoard">
         <LeaderBoard />
       </div>
-      <div>
+      <div className="userSection">
         <User triviaUser={userStats} />
       </div>
-      <button type="button" className="button" onClick={(e) => handleClose(e)}>
-        Ranked
-      </button>
-      <button type="button" className="button" disabled={false}>
-        Casual
-      </button>
+      <div className="buttons">
+        <button
+          type="button"
+          className="button"
+          onClick={(e) => handleClose(e)}
+        >
+          Ranked
+        </button>
+        <button type="button" className="button" disabled={false}>
+          Casual
+        </button>
+      </div>
       {popup && (
-        <Popup
-          onClose={handleClose}
-          childComponent={<Game onClose={handleClose} />}
-        ></Popup>
+        <div className="popupContainer">
+          <div className="popupContent">
+            <Popup
+              onClose={handleClose}
+              childComponent={<Game onClose={handleClose} />}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

@@ -6,6 +6,7 @@ import "./Register.css";
 export default function Register() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   async function register(e) {
@@ -18,14 +19,17 @@ export default function Register() {
 
     const response = await postData(`/api/user/register`, body);
     
-    if (response) {
-        navigate("/");
-      }
+    if (response && response.error) {
+      setErrorMessage(response.error);
+    } else {
+      navigate("/");
+    }
   }
 
   return (
     <div>
       <h1>Register</h1>
+      {errorMessage && <p style={{ color: "red" }}>{"Username already in use, please choose another!"}</p>}
       <form className="form">
         <div>
           <label htmlFor="userName">Username: </label>
