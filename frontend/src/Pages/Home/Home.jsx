@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import LeaderBoard from "../../Components/LeaderBoard";
+import LeaderBoard from "../../Components/LeaderBoard/LeaderBoard.jsx";
 import Game from "../../Components/Game";
 import Popup from "../../Components/Popup/Popup";
 import User from "../../Components/User/User";
