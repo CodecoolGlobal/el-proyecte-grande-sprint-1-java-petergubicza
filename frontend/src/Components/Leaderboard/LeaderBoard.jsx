@@ -1,4 +1,4 @@
-import "./LeaderBoard.css";
+import "./Leaderboard.css";
 import { useState, useEffect } from "react";
 
 export default function LeaderBoard() {

@@ -6,6 +6,7 @@ import "./Login.css";
 export default function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // Állapot a hibaüzenetnek
   const navigate = useNavigate();
 
   async function login() {
@@ -14,18 +15,23 @@ export default function Login() {
       password,
     };
 
-    const response = await postData(`/api/user/login`, body);
+    try {
+      const response = await postData(`/api/user/login`, body);
     
-    if (response.jwt) {
-      localStorage.setItem("jwt", response.jwt);
-      localStorage.setItem("name", response.userName);
-      navigate("/home");
+      if (response.jwt) {
+        localStorage.setItem("jwt", response.jwt);
+        localStorage.setItem("name", response.userName);
+        navigate("/home");
+      }
+    } catch (error) {
+      setError("Username or password is incorrect");
     }
   }
 
   return (
     <div>
       <h1>Login</h1>
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <form className="form">
         <div>
           <label htmlFor="userName">Username: </label>
