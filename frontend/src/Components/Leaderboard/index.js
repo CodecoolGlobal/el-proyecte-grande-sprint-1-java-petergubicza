@@ -1,3 +1,3 @@
-import LeaderBoard from "./LeaderBoard.jsx";
+import Leaderboard from "./Leaderboard.jsx";
 
-export default LeaderBoard;
+export default Leaderboard;
