@@ -72,7 +72,7 @@ export default function Login() {
         </div>
         <div>
           <Link to={"home"}>
-            <button className="button" type="button" disabled={false}>
+            <button className="button" type="button" disabled={true}>
               Play as Guest
             </button>
           </Link>
