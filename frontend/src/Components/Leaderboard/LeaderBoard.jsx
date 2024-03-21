@@ -1,7 +1,7 @@
 import "./Leaderboard.css";
 import { useState, useEffect } from "react";
 
-export default function LeaderBoard() {
+export default function Leaderboard() {
   const [championsWithPoints, setChampionsWithPoints] = useState([]);
 
   useEffect(() => {
