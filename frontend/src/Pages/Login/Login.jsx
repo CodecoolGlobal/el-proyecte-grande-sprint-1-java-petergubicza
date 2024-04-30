@@ -6,7 +6,7 @@ import "./Login.css";
 export default function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // Állapot a hibaüzenetnek
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   async function login() {

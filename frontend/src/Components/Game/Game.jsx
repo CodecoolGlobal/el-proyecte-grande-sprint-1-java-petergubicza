@@ -4,7 +4,7 @@ import Question from "./Questions";
 import Answers from "./Answers";
 import "./Game.css";
 
-export default function Game({ onClose }) {
+export default function Game({ onClose, answerPublisher }) {
   const [quizQuest, setQuizQuest] = useState(null);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
 
@@ -55,7 +55,7 @@ export default function Game({ onClose }) {
       ) : (
         <div className="quiz">
           <Question question={quizQuest.questionDescription} />
-          <Answers quest={quizQuest} isSubmitted={enableNextButton} />
+          <Answers quest={quizQuest} isSubmitted={enableNextButton} answerPublisher={answerPublisher} />
           <button className="button" onClick={onClose}>
             Close
           </button>

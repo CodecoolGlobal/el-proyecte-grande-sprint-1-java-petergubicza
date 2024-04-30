@@ -1,10 +1,26 @@
 import "./Leaderboard.css";
 import { useState, useEffect } from "react";
 
-export default function LeaderBoard() {
+export default function Leaderboard({ answerPublisher }) {
   const [championsWithPoints, setChampionsWithPoints] = useState([]);
 
   useEffect(() => {
+    const callback = () => {
+      fetchLeaderboard();
+    };
+
+    answerPublisher.addSubscriber(callback);
+
+    return () => {
+      answerPublisher.removeSubscriber(callback);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchLeaderboard();
+  }, []);
+
+  function fetchLeaderboard() {
     fetch(`/api/leaderboard/leaderboard`, {
       method: "GET",
       headers: {
@@ -19,7 +35,7 @@ export default function LeaderBoard() {
       .catch((error) => {
         console.error("Error fetching leaderboard", error);
       });
-  }, []);
+  }
 
   return (
     <div>

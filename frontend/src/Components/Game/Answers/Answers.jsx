@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
 /* eslint-disable react/prop-types */
-export default function Answers({ quest, isSubmitted }) {
+export default function Answers({ quest, isSubmitted, answerPublisher }) {
   const [selectedAnswerId, setSelectedAnswerId] = useState(null);
   const [correctAnswerId, setCorrectAnswerId] = useState(null);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
 
-  useEffect(() => {
+    useEffect(() => {
     setSelectedAnswerId(null);
     setCorrectAnswerId(null);
     setIsAnswerSubmitted(false);
@@ -19,7 +19,7 @@ export default function Answers({ quest, isSubmitted }) {
   };
 
   function handleSubmitClick() {
-    if (selectedAnswerId !== null) {
+      if (selectedAnswerId !== null) {
       fetch(`/api/question/correct_answer?questionId=${quest.id}`, {
         method: "GET",
         headers: {
@@ -41,6 +41,7 @@ export default function Answers({ quest, isSubmitted }) {
           }
           isSubmitted();
           setIsAnswerSubmitted(true);
+          answerPublisher.broadcastEvent();
         })
         .catch((error) =>
           console.error("Error fetching correct answer:", error)

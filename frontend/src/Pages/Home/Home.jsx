@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import LeaderBoard from "../../Components/Leaderboard";
 import Game from "../../Components/Game";
 import Popup from "../../Components/Popup/Popup";
 import User from "../../Components/User/User";
+import Publisher from "../../publisher";
 import "./Home.css";
 
 export default function Home() {
   const [popup, setPopup] = useState(false);
   const [userStats, setUserStats] = useState(null);
+
+  const answerPublisher = useRef(new Publisher());
 
   useEffect(() => {
     fetch(`/api/user/stats`, {
@@ -34,7 +37,7 @@ export default function Home() {
     <div className="homePage">
       <h1 className="header">Home</h1>
       <div className="leaderBoard">
-        <LeaderBoard />
+        <LeaderBoard answerPublisher={answerPublisher.current} />
       </div>
       <div className="userSection">
         <User triviaUser={userStats} />
@@ -43,11 +46,13 @@ export default function Home() {
         <button
           type="button"
           className="button"
-          onClick={(e) => handleClose(e)}
-        >
+          onClick={(e) => handleClose(e)}>
           Ranked
         </button>
-        <button type="button" className="button" disabled={false}>
+        <button
+          type="button"
+          className="button"
+          disabled={false}>
           Casual
         </button>
       </div>
@@ -56,7 +61,7 @@ export default function Home() {
           <div className="popupContent">
             <Popup
               onClose={handleClose}
-              childComponent={<Game onClose={handleClose} />}
+              childComponent={<Game onClose={handleClose} answerPublisher={answerPublisher.current} />}
             />
           </div>
         </div>
