@@ -1,6 +1,7 @@
 # Trivia Quiz
 
 This is a website where you can test your knowledge in several topics by answering quiz questions.
+![Trivia](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-petergubicza/assets/130778504/f0637160-a3b7-462e-a458-29fb23379ed1)
 
 ## Description
 
@@ -45,9 +46,9 @@ npm start
 ```
 5. Setup environmental variables for database:
 ```sh
-spring.datasource.url=${DB_URL}
-spring.datasource.username=${POSTGRES_USER}
-spring.datasource.password=${POSTGRES_PASSWORD}
+"DB_URL": URL for accessing database
+"POSTGRES_USER": username registered in database
+"POSTGRES_PASSWORD": password associated with registered username
 ```
 6. Navigate to the specified URL in your web browser:
 ```sh
