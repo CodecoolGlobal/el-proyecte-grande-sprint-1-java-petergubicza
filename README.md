@@ -12,7 +12,9 @@ You can choose between casual and ranked play. If you choose to play ranked your
 
 ### Built With
 
+- [Javascript](https://www.javascript.com/)
 - [React.js](https://react.dev/)
+- [Vite](https://vitejs.dev/)
 - [Java](https://www.java.com/en/)
 - [SpringBoot](https://spring.io/projects/spring-boot)
 - [PostreSQL](https://www.postgresql.org/)
@@ -57,6 +59,7 @@ http://localhost:5173/
 
 ## Contact
 
+Gubicza Péter - gubicza.peter36@gmail.com
 Gömöri Dávid - gomori.david@gmail.com
 
 Project - https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-petergubicza
