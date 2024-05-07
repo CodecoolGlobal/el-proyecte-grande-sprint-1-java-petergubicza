@@ -43,7 +43,13 @@ cd frontend
 npm install
 npm start
 ```
-5. Navigate to the specified URL in your web browser:
+5. Setup environmental variables for database:
+```sh
+spring.datasource.url=${DB_URL}
+spring.datasource.username=${POSTGRES_USER}
+spring.datasource.password=${POSTGRES_PASSWORD}
+```
+6. Navigate to the specified URL in your web browser:
 ```sh
 http://localhost:5173/
 ```
