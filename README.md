@@ -1,6 +1,7 @@
 # Trivia Quiz
 
 This is a website where you can test your knowledge in several topics by answering quiz questions.
+
 ![Trivia](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-petergubicza/assets/130778504/f0637160-a3b7-462e-a458-29fb23379ed1)
 
 ## Description
@@ -21,10 +22,10 @@ You can choose between casual and ranked play. If you choose to play ranked your
 
 ### Prerequisits
 
-- JDK 17 or higher
-- Maven 3.9.6 or higher
-- Node.js and Node Package Manager 9.5.1 or higher
-- PostgreSQL installed and configured
+- **JDK** 17 or higher
+- **Maven** 3.9.6 or higher
+- **Node.js** and **Node Package Manager** 9.5.1 or higher
+- **PostgreSQL** installed and configured
 
 ### Installation
 
@@ -59,7 +60,7 @@ http://localhost:5173/
 
 ## Contact
 
-Gubicza Péter - gubicza.peter36@gmail.com
-Gömöri Dávid - gomori.david@gmail.com
+- Gubicza Péter - gubicza.peter36@gmail.com
+- Gömöri Dávid - gomori.david@gmail.com
 
 Project - https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-petergubicza
