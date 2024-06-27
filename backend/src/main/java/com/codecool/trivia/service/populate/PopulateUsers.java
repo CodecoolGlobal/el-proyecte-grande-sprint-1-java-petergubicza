@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PopulateUsers {
-  private final static int NUMBER_OF_CHAMPIONS = 5;
-  private final static String[] NAMES = {"Einstein", "Vágó István", "Sheldon", "Dumb", "Dumber"};
-  private final static String[] PASSWORDS = {"pw1", "pw2", "pw3", "pw4", "pw5"};
-  private final static int[] POINTS = {200, 100, 50, 10, 5};
+  private final static int NUMBER_OF_CHAMPIONS = 6;
+  private final static String[] NAMES = {"Einstein", "Vágó István", "Sheldon", "Dumb", "Dumber", "TestUser"};
+  private final static String[] PASSWORDS = {"pw1", "pw2", "pw3", "pw4", "pw5", "$2a$10$nCTiFgjQlHRB3mXCJ8Xd4.chwDQdLnGOUJt1r.FaGigOyyCoCWCg2"};
+  private final static int[] POINTS = {200, 100, 50, 10, 5, 0};
   UserRepository userRepository;
 
   @Autowired

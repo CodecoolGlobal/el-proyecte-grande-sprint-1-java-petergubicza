@@ -22,6 +22,8 @@ export default function Login() {
         localStorage.setItem("jwt", response.jwt);
         localStorage.setItem("name", response.userName);
         navigate("/home");
+      } else {
+        setError("Username is not registered");
       }
     } catch (error) {
       setError("Username or password is incorrect");

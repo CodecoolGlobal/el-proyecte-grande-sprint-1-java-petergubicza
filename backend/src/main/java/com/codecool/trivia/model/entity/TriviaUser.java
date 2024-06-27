@@ -1,11 +1,9 @@
 package com.codecool.trivia.model.entity;
 
+import com.codecool.trivia.model.enums.RoleName;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 public class TriviaUser {
@@ -26,11 +24,11 @@ public class TriviaUser {
     this.name = name;
     this.password = password;
     this.points = 0;
-    this.roles = new HashSet<>();
+    this.roles = new HashSet<>(List.of(new Role(RoleName.ROLE_USER)));
   }
 
-  public boolean addRole(Role role) {
-    return roles.add(role);
+  public void addRole(Role role) {
+    roles.add(role);
   }
 
   public Set<Role> getRoles() {
