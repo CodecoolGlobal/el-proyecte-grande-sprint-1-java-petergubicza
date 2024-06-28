@@ -64,7 +64,7 @@ public class UserService {
               hashedPassword
       );
 
-      newUser.addRole(new Role(RoleName.ROLE_USER));
+//      newUser.addRole(new Role(RoleName.ROLE_USER));
 
       userRepository.save(newUser);
       return ResponseEntity.ok(new UserNameDTO(newUser.getName()));
